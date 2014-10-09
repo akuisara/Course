@@ -6,3 +6,4 @@ COMP215 Algorithms
 COMP335 Principles of Programming Languages
 ===
 - bst.rkt: Binary search tree that can traverse the tree in-order 
+- parser_interpreter.rkt: Implement the parser, interpreter and syntactic sugar
