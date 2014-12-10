@@ -1,0 +1,49 @@
+html {
+	font-family: 'Neuton', serif;
+	font-size: 50px;
+	background-color: #F0F0F0;
+}
+
+.title {
+	width: 500px;
+	text-align: center;
+	color: black;
+	font-size: 3em;
+}
+
+.slideblock {
+	width: 1200px;
+	height: 700px;
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 50px;
+}
+
+.slideTitle {
+	margin-left: 100px;
+	margin-top: 20px;
+}
+
+.content {
+	margin-left: 40px;
+	max-width: 800px;
+}
+
+.full-content {
+	margin-left: 40px;
+}
+
+.pic {
+	float: right;
+	margin-right: 50px;
+	margin-top: -400px;
+}
+
+.full-pic {
+	margin-left:350px;
+	margin-top: -30px;
+}
+
+a {
+	text-decoration: none;
+}

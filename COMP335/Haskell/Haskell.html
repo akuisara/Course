@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Haskell</title>
+    
+    <link rel="stylesheet" href="style.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,800,400italic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div id="impress">
+
+<div class="step slide" data-x="0" data-y="0" data-z="-3000">
+        <div>
+          <p class="title">Haskell</p>
+          <p style="float:right; margin-bottom:200px">Qi Zhang</p>
+        </div>
+</div>
+
+<div class="step slide" data-x="0" data-y="0" data-z="3000">
+  <div class="slideblock">
+    <h2 class="slideTitle">Background</h2>
+    <div class="content">
+      <ul>
+        <li><p>Defined by a committed in 1990</p>
+          <p>(committed formed at the Functional Programming Languages and Computer Architecture Conference '87)</p></li>
+        <li>Named for Haskell Brooks Curry</li>
+      </ul>
+    </div>
+    <div class="pic">
+      <img width="250px" height="250px" src="images/Haskell-Logo.svg.png"/>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="1600" data-y="0" data-z="3000" data-rotate-x="45">
+  <div class="slideblock">
+    <h2 class="slideTitle">Background</h2>
+    <div class="full-content">
+      <ul>
+        <li>Snap - A simple web development framework for unix systems</li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="step slide" data-x="3200" data-y="0" data-z="3000" data-rotate-x="90">
+  <div class="slideblock">
+    <h2 class="slideTitle">Background</h2>
+    <div class="full-content">
+      <ul>
+        <li>Hakyll is a Haskell library for generating static sites, mostly aimed at small-to-medium sites and personal blogs</li>
+        <li>Linspire chose Haskell for system tools development</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="4800" data-y="0" data-z="3000" data-rotate-x="135">
+  <div class="slideblock">
+    <h2 class="slideTitle">Background</h2>
+    <div class="full-content">
+      <ul>
+        <li>O'Haskell: an extension of Haskell adding object-orientation and concurrent programming</li>
+        <li>Scotch: a kind of hybrid of Haskell and Python</li>
+        <li>Curry: a functional/logic programming language based on Haskell</li>
+        <li>Jaskell, a functional scripting programming language that runs in Java VM</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="4800" data-y="0" data-z="0" data-rotate-y="45">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="content" style="max-width: 600px;">
+      <p><strong>REPL</strong>: After typing an expression at the prompt, compiler immediately evaluates and prints the result after typing an expression</p>
+      <p><a href="http://tryhaskell.org/">Tryhaskell.org</a></p>
+    </div>
+    <div class="pic">
+      <img width="500px" height="300px" src="images/REPL.png"/>
+    </div>
+    
+  </div>
+</div>
+
+<div class="step slide" data-x="4800" data-y="3000" data-z="0" data-rotate-y="90">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="full-content">
+      <p>Both <strong>compiled</strong> &amp; <strong>interpreted</strong> implementations available</p>
+    </div>
+    <div>
+      <img width="500px" height="300px" style="margin-left:100px;" src="images/GHC.png"/>
+      <img width="500px" height="300px" src="images/GHCi.png"/>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="4800" data-y="7000" data-z="0" data-rotate-y="135">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="content" style="max-width: 500px;">
+      <p><strong>Lazy Evaluation</strong></p><p>Results are only computed if they are required</p>
+    </div>
+    <div class="pic">
+      <img width="650px" height="550px" style="margin-top:20px;" src="images/Lazy.png"/>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="4800" data-y="8000" data-z="0" data-rotate-y="180">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="content" style="max-width: 600px;">
+      <p><strong>Strong Static Typing</strong></p>
+      <ul>
+        <li>Instances of a type cannot be cast into another type</li>
+        <li>The type of every expression and every variable is known at compile time</li>
+      </ul>
+    </div>
+    <div class="pic">
+      <img width="350px" height="550px" style="margin-top:-150px;" src="images/Type.png"/>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="3000" data-y="9000" data-z="0" data-rotate-x="45" data-rotate-y="180">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="full-content">
+      <p><strong>Error Handling</strong></p>
+      <p>Call error OR Build own error handling frameworks</p>
+      <p><a href="http://blog.ezyang.com/2011/08/8-ways-to-report-errors-in-haskell-revisited/">(Blog: More Methods For Handling Errors)</a></p>
+      <ul>
+        <li>Error</li>
+        <li>Maybe A</li>
+        <li>Either A</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="1200" data-y="9000" data-z="0" data-rotate-x="90" data-rotate-y="180">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="content">
+      <p><strong>Error</strong></p>
+    </div>
+    <div class="pic">
+      <img width="900px" height="500px" style="margin-top:250px;" src="images/Error.png"/>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="-600" data-y="9000" data-z="0" data-rotate-x="135" data-rotate-y="180">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="content">
+      <p><strong>Maybe A</strong></p>
+    </div>
+    <div class="pic">
+      <img width="900px" height="500px" style="margin-top:250px;" src="images/MaybeA.png"/>
+    </div>
+  </div>
+</div>
+
+<div class="step slide" data-x="-2400" data-y="9000" data-z="0" data-rotate-x="180" data-rotate-y="180">
+  <div class="slideblock">
+    <h2 class="slideTitle">Technical Aspect</h2>
+    <div class="content">
+      <p><strong>Either A</strong></p>
+    </div>
+    <div class="pic">
+      <img width="900px" height="500px" style="margin-top:250px;" src="images/EitherA.png"/>
+    </div>
+  </div>
+</div>
+
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+</body>
+
+</html>
