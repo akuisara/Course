@@ -1,4 +1,5 @@
 // Java API Documentation: http://docs.oracle.com/javase/7/docs/api/
+// Apache Commons: http://commons.apache.org/
 
 // Garbage collection is a part of JVM, the garbage collector runs its own thread, references expire when out of the scope, explicitly expire the persistent objects by setting to null
 // Variables: primitives ((data type lowercase / helper class uppercase (e.g., upward numeric conversion, which can also be done by using the casting syntax: add (certainType) before the value)) - int (byte, short, int, long: num_L), char, bool, float (float: num_f, double: num_d)); complex objects (string, date, other objects...). Class variables are fields
@@ -22,10 +23,14 @@
 
 
 import java.math.*; // BigDecimal
-import java.io.*;
+import java.io.*;   // InputStream, OutputStream, File, FileInputStream, FileOutputStream, FileNotFoundException, IOException
 import java.util.*; // Date, GregorianCalendar, ArrayList, HashMap, Set, Iterator, ListIterator
 import java.text.*; // DateFormat
 import java.net.*;  // URI, URL
+
+import org.apache.commons.io.FileUtils;
+// compile: javac -classpath lib/commons-io-2.4.jar HelloWorld.java -d .
+// run: java -classpath lib/commons-io-2.4.jar: HelloWorld
 
 public class HelloWorld {
     // constant variable: final the value cannot be changed
@@ -107,7 +112,6 @@ public class HelloWorld {
         statesList.add("N/A");
         statesList.add("MA"); statesList.add("CO"); statesList.add("FL"); statesList.add("NH"); statesList.add("RI"); statesList.add("NY");
         statesList.remove(0); // get(), indexOf(), etc
-        System.out.println(statesList);
         ListIterator<String> listIterator = statesList.listIterator();
         while (listIterator.hasNext()){
             System.out.println(listIterator.next());
@@ -116,12 +120,36 @@ public class HelloWorld {
         HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("Massachusetts", "MA"); // remove(key), get(key), etc
         hashMap.put("New York", "NY"); // remove(key), get(key), etc
-        System.out.println(hashMap);
         Set<String> keys = hashMap.keySet();
         Iterator<String> iterator = keys.iterator();
         while (iterator.hasNext()){
             String state = iterator.next();
             System.out.println(state + ": " + hashMap.get(state));
+        }
+
+        // File
+        try {
+            File file1 = new File("input.txt");
+            File file2 = new File("output.txt");
+
+            // InputStream inputStream = new FileInputStream(file1);
+            // OutputStream outputStream = new FileOutputStream(file2);
+
+            // byte[] buffer = new byte[1024];
+            // int len;
+            // while ((len = inputStream.read(buffer)) > 0){ // while !eof
+            //     outputStream.write(buffer, 0, len); // copy file
+            // }
+
+            // inputStream.close();
+            // outputStream.close();
+
+            // alternative way to copy file by using apache commons library
+            FileUtils.copyFile(file1, file2);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
