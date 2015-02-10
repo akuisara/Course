@@ -21,6 +21,13 @@
 
 // dummynet: network emulation tool
 
+/**
+* Generate Javadoc
+* @author Sara
+* @version 1.0
+**/
+
+// package HelloWorld
 
 import java.math.*; // BigDecimal
 import java.io.*;   // InputStream, OutputStream, File, FileInputStream, FileOutputStream, FileNotFoundException, IOException, BufferedInputStream
@@ -31,6 +38,9 @@ import java.net.*;  // URI, URL, MalformedURLEception
 import org.apache.commons.io.FileUtils;
 // compile: javac -classpath lib/commons-io-2.4.jar HelloWorld.java -d .
 // run: java -classpath lib/commons-io-2.4.jar: HelloWorld
+// .jar: Java archive file 
+// Create: jar cf HelloWorld.jar HelloWorld.java 
+// Environment variable for current session: set CLASSPATH=.:{Package jar}
 
 import javax.xml.parsers.*; // DocumentBuilderFactory, DocumentBuilder, ParserConfigurationException
 import org.w3c.dom.*; // Element, Document, NodeList
