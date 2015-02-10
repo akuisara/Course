@@ -23,14 +23,18 @@
 
 
 import java.math.*; // BigDecimal
-import java.io.*;   // InputStream, OutputStream, File, FileInputStream, FileOutputStream, FileNotFoundException, IOException
+import java.io.*;   // InputStream, OutputStream, File, FileInputStream, FileOutputStream, FileNotFoundException, IOException, BufferedInputStream
 import java.util.*; // Date, GregorianCalendar, ArrayList, HashMap, Set, Iterator, ListIterator
 import java.text.*; // DateFormat
-import java.net.*;  // URI, URL
+import java.net.*;  // URI, URL, MalformedURLEception
 
 import org.apache.commons.io.FileUtils;
 // compile: javac -classpath lib/commons-io-2.4.jar HelloWorld.java -d .
 // run: java -classpath lib/commons-io-2.4.jar: HelloWorld
+
+import javax.xml.parsers.*; // DocumentBuilderFactory, DocumentBuilder, ParserConfigurationException
+import org.w3c.dom.*; // Element, Document, NodeList
+import org.xml.sax.SAXException;
 
 public class HelloWorld {
     // constant variable: final the value cannot be changed
@@ -93,18 +97,7 @@ public class HelloWorld {
         String date2 = dateFormatter.format(date1);
         System.out.println(date2);
 
-        try {
-            URI uri = new URI(
-                "https",
-                "github.com",
-                "/akuisara/Course/blob/master/Computer_Communications_And_Networks/learnJava/HelloWorld.java",
-                null);
-            URL url = uri.toURL();
-            System.out.println(url);
-
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }     
+            
 
         // multidimensional arrays
         // String [][] states = new String[int][int];   
@@ -151,6 +144,54 @@ public class HelloWorld {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        try {
+            // URI uri = new URI(
+            //     "https",
+            //     "github.com",
+            //     "/akuisara/Course/blob/master/Computer_Communications_And_Networks/learnJava/HelloWorld.java",
+            //     null);
+            // URL url = uri.toURL();
+
+            URL url = new URL("https://github.com/akuisara/Course/tree/master/Computer_Communications_And_Networks/learnJava");
+            InputStream stream = url.openStream();
+            BufferedInputStream bufferedStream = new BufferedInputStream(stream);
+
+            StringBuilder stringBuilder = new StringBuilder();
+            int webSource = 0;
+            while(true){
+                webSource = bufferedStream.read();
+                if (webSource == -1) {
+                    break;
+                } else {
+                    stringBuilder.append((char) webSource);
+                }
+            }
+            // System.out.println(stringBuilder);
+
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        } 
+
+        // Parse XML
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse("http://www.w3schools.com/xml/note.xml");
+            NodeList list = document.getElementsByTagName("body");
+
+            for (int j=0; j<list.getLength(); j++) {
+                Element elt = (Element)list.item(j);
+                System.out.println(elt.getFirstChild().getNodeValue());
+            }
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
     }
 
     private static String getInput(String prompt){
