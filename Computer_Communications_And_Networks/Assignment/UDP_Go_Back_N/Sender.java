@@ -20,10 +20,11 @@ class Sender {
       // get the IP address of localhost
       InetAddress IPAddress = InetAddress.getByName("localhost");
 
-      // set port, input filename and retry time out from the command line
+      // set port, input filename, retry time out, and the window size from the command line
       int senderPort = Integer.parseInt(args[1]);
       String fileName = args[2];
       int retryTimeOut = Integer.parseInt(args[3]);
+      int windowSize = Integer.parseInt(args[4]);
 
       // read image
       BufferedImage img = ImageIO.read(new File(fileName));
