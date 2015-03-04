@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- ng-app is a directive -->
+<html lang="en" ng-app="tryAngular">
+<head>
+    <meta charset="utf-8" />
+    <title>Try AngularJS</title>
+    <script src="lib/Angular/angular.min.js"></script>
+    <script src="js/tryAngular.js"></script>
+</head>
+
+<body>
+    <div>
+        <!-- two-way data binding -->
+        <input type="text" ng-model="name">
+        <h1>Welcome {{name}}</h1>
+    </div>
+
+    <div ng-controller="MyController">
+    	<ul>
+    		<li ng-repeat="item in option">
+    			<h2>{{item.id}}</h2>
+    			<h3>{{item.label}}</h3>
+    		</li>
+    	</ul>
+    </div>
+
+</body>
+</html>
