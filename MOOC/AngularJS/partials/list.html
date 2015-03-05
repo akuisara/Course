@@ -1,0 +1,30 @@
+<section class="searchPage">
+    <div class="search">
+        <label>Search</label>
+        <input ng-model="query" placeholder="Search for function..." autofocus>
+
+        <label class="order-group">Order By: 
+            <select ng-model="filterorder">
+                <option value="instruction">Instruction</option>
+                <option value="description">Description</option>
+            </select>
+        </lable>
+
+        <label class="order-group">
+            <input type="radio" ng-model="direction" name="direction" checked>Ascending
+        </label>
+
+        <label class="order-group">
+            <input type="radio" ng-model="direction" name="direction" value="reverse">Descending
+        </label>
+    </div>
+
+    <ul>
+        <li ng-repeat="item in choices | filter: query | orderBy: filterorder: direction">
+            <a href="#/details/{{choices.indexOf(item)}}">
+                <h2>{{item.instruction | uppercase}}</h2>
+                <h3>{{item.description}}</h3>
+            </a>
+        </li>
+    </ul>
+</section>

@@ -1,7 +1,14 @@
-var tryAngular = angular.module("tryAngular",[]);
+var exampleController = angular.module("exampleController",[]);
 
-tryAngular.controller("MyController", ["$scope", "$http", function MyController($scope, $http){
+exampleController.controller("ListController", ["$scope", "$http", function MyController($scope, $http){
 	$http.get("js/example.json").success(function(data){
-		$scope.option = data;
+		$scope.choices = data;
+	});
+}]);
+
+exampleController.controller("DetailsController", ["$scope", "$http", "$routeParams", function MyController($scope, $http, $routeParams){
+	$http.get("js/example.json").success(function(data){
+		$scope.choices = data;
+		$scope.whichChoice = $routeParams.itemInstruction;
 	});
 }]);

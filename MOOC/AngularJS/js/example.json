@@ -1,68 +1,68 @@
 [
     {
-        "id": "Open"
+        "instruction": "Open"
     },
     {
-        "id": "OpenNew",
-        "label": "Open New"
+        "instruction": "OpenNew",
+        "description": "Open New"
     },
     {
-        "id": "ZoomIn",
-        "label": "Zoom In"
+        "instruction": "ZoomIn",
+        "description": "Zoom In"
     },
     {
-        "id": "ZoomOut",
-        "label": "Zoom Out"
+        "instruction": "ZoomOut",
+        "description": "Zoom Out"
     },
     {
-        "id": "OriginalView",
-        "label": "Original View"
+        "instruction": "OriginalView",
+        "description": "Original View"
     },
     {
-        "id": "Quality"
+        "instruction": "Quality"
     },
     {
-        "id": "Pause"
+        "instruction": "Pause"
     },
     {
-        "id": "Mute"
+        "instruction": "Mute"
     },
     {
-        "id": "Find",
-        "label": "Find..."
+        "instruction": "Find",
+        "description": "Find..."
     },
     {
-        "id": "FindAgain",
-        "label": "Find Again"
+        "instruction": "FindAgain",
+        "description": "Find Again"
     },
     {
-        "id": "Copy"
+        "instruction": "Copy"
     },
     {
-        "id": "CopyAgain",
-        "label": "Copy Again"
+        "instruction": "CopyAgain",
+        "description": "Copy Again"
     },
     {
-        "id": "CopySVG",
-        "label": "Copy SVG"
+        "instruction": "CopySVG",
+        "description": "Copy SVG"
     },
     {
-        "id": "ViewSVG",
-        "label": "View SVG"
+        "instruction": "ViewSVG",
+        "description": "View SVG"
     },
     {
-        "id": "ViewSource",
-        "label": "View Source"
+        "instruction": "ViewSource",
+        "description": "View Source"
     },
     {
-        "id": "SaveAs",
-        "label": "Save As"
+        "instruction": "SaveAs",
+        "description": "Save As"
     },
     {
-        "id": "Help"
+        "instruction": "Help"
     },
     {
-        "id": "About",
-        "label": "About xProgress CVG Viewer..."
+        "instruction": "About",
+        "description": "About xProgress CVG Viewer..."
     } 
 ]
