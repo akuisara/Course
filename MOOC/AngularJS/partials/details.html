@@ -1,8 +1,8 @@
 <section class="instructionInfo">
-	<a href="index.html#/list">
-		<div ng-model="choices">
-			<h2>{{choices[whichChoice].instruction}}</h2>
-			<h3>{{choices[whichChoice].description}}</h3>
-		</div>
-	</a>
+	<a href="#/details/{{prevItem}}" class="button">&lt;</a>	
+	<a href="#/details/{{nextItem}}" class="button">&gt;</a>	
+	<div ng-model="choices"><a href="index.html#/list">
+		<h2>{{choices[whichChoice].instruction}}</h2>
+		<h3>{{choices[whichChoice].description}}</h3>
+	</a></div>
 </section>
