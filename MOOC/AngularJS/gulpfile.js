@@ -3,7 +3,7 @@ var gulp = require("gulp"),
 	webserver = require("gulp-webserver");
 
 gulp.task("js", function(){
-	gulp.src(["js/*.js","js/lib/Angular/*.js"]);
+	gulp.src(["js/*.js","js/lib/*.js","js/lib/Angular/*.js"]);
 });
 
 gulp.task("html", function(){
@@ -11,7 +11,7 @@ gulp.task("html", function(){
 });
 
 gulp.task("watch", function(){
-	gulp.watch("js/**/*.js",["js"]);
+	gulp.watch(["js/*.js","js/lib/*.js","js/lib/Angular/*.js"],["js"]);
 	gulp.watch(["index.html","partials/*.html"],["html"]);
 });
 
