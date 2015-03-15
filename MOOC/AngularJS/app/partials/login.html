@@ -1,5 +1,5 @@
 <section class="SignIn">
-    <form name="signInForm" novalidate>
+    <form name="signInForm" ng-submit="login()" validate>
     	<h1>Sign In</h1>
     	<input type="email" name="email" placeholder="Email" autofocus ng-model="user.email" ng-required="true">
     	<p class="error" ng-show="signInForm.email.$invalid && signInForm.email.$touched">Invalid Email</p>
@@ -8,6 +8,6 @@
     	<p class="error" ng-show="signInForm.password.$invalid && signInForm.password.$touched">Password Required</p>
 
     	<button type="submit">Sign In</button>
-    	<p>or Sign Up</p>
+    	<p>or <a href="/#/register"><button>Sign Up</button></a></p>
     </form>
 </section>

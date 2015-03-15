@@ -1,0 +1,17 @@
+<section class="signUp">
+    <form name="signUpForm" ng-submit="register()" validate>
+    	<h1>Sign Up</h1>
+
+    	<input type="text" name="username" placeholder="Username" autofocus ng-model="user.username" ng-required="true">
+    	<p class="error" ng-show="signUpForm.username.$invalid && signUpForm.username.$touched">Username Required</p>
+
+    	<input type="email" name="email" placeholder="Email" autofocus ng-model="user.email" ng-required="true">
+    	<p class="error" ng-show="signUpForm.email.$invalid && signUpForm.email.$touched">Invalid Email</p>
+
+    	<input type="password" name="password" placeholder="Password" autofocus ng-model="user.password" ng-required="true">
+    	<p class="error" ng-show="signUpForm.password.$invalid && signUpForm.password.$touched">Password Required</p>
+
+    	<button type="submit">Sign Up</button>
+    	<p>or <a href="/#/login"><button>Sign In</button></a></p>
+    </form>
+</section>

@@ -1,5 +1,15 @@
 var exampleController = angular.module("exampleController",[]);
 
+exampleController.controller("LoginController", ["$scope","$location", function MyController($scope, $location){
+	$scope.login = function(){
+		$location.path("/dashboard");
+	};
+
+	$scope.register = function(){
+		$location.path("/dashboard");
+	};
+}]);
+
 exampleController.controller("ListController", ["$scope", "$http", function MyController($scope, $http){
 	$http.get("js/example.json").success(function(data){
 		$scope.choices = data;

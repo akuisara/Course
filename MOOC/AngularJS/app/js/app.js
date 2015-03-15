@@ -6,7 +6,15 @@ var myApp = angular.module("myApp", [
 myApp.config(["$routeProvider", function($routeProvider){
 	$routeProvider.
 	when("/login", {
-		templateUrl: "partials/login.html"
+		templateUrl: "partials/login.html",
+		controller: "LoginController"
+	}).
+	when("/register", {
+		templateUrl: "partials/register.html",
+		controller: "LoginController"
+	}).
+	when("/dashboard", {
+		templateUrl: "partials/dashboard.html"
 	}).
 	when("/list", {
 		templateUrl: "partials/list.html",
