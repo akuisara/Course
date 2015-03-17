@@ -1,3 +1,6 @@
 <section class="dashboard">
 	<h1>My Dashboard</h1>
+	<div class="dashboard-content" ng-repeat="content in firebaseContent">
+		<p>{{content.name}}</p>
+	</div>
 </section>

@@ -1,4 +1,4 @@
-var exampleController = angular.module("exampleController",[]);
+var exampleController = angular.module("exampleController",["firebase"]);
 
 exampleController.controller("LoginController", ["$scope","$location", function MyController($scope, $location){
 	$scope.login = function(){
@@ -8,6 +8,19 @@ exampleController.controller("LoginController", ["$scope","$location", function 
 	$scope.register = function(){
 		$location.path("/dashboard");
 	};
+}]);
+	
+exampleController.controller("DashboardController", ["$scope", "$firebase", function MyController($scope, $firebase){
+
+	var firebaseRef = new Firebase("https://flickering-fire-7979.firebaseio.com/dashboard");
+
+
+	var firebaseContent = $firebase(firebaseRef);
+
+	console.log(firebaseContent.$asObject());
+
+
+	$scope.firebaseContent = firebaseContent.$asObject();
 }]);
 
 exampleController.controller("ListController", ["$scope", "$http", function MyController($scope, $http){

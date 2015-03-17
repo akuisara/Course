@@ -1,5 +1,6 @@
 var myApp = angular.module("myApp", [
 	"ngRoute",
+	"firebase",
 	"exampleController"
 ]);
 
@@ -14,7 +15,8 @@ myApp.config(["$routeProvider", function($routeProvider){
 		controller: "LoginController"
 	}).
 	when("/dashboard", {
-		templateUrl: "partials/dashboard.html"
+		templateUrl: "partials/dashboard.html",
+		controller: "DashboardController"
 	}).
 	when("/list", {
 		templateUrl: "partials/list.html",
