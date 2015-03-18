@@ -13,14 +13,20 @@ exampleController.controller("LoginController", ["$scope","$location", function 
 exampleController.controller("DashboardController", ["$scope", "$firebase", function MyController($scope, $firebase){
 
 	var firebaseRef = new Firebase("https://flickering-fire-7979.firebaseio.com/dashboard");
-
-
 	var firebaseContent = $firebase(firebaseRef);
 
-	console.log(firebaseContent.$asObject());
-
-
 	$scope.firebaseContent = firebaseContent.$asObject();
+
+	$scope.addContent = function(){
+		firebaseContent.$push({
+			name: $scope.contentName,
+			description: $scope.contentDescription,
+			date: Firebase.ServerValue.TIMESTAMP
+		}).then(function(){
+			$scope.contentName = "";
+			$scope.contentDescription = "";
+		});
+	};
 }]);
 
 exampleController.controller("ListController", ["$scope", "$http", function MyController($scope, $http){

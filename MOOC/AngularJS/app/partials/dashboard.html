@@ -3,4 +3,17 @@
 	<div class="dashboard-content" ng-repeat="content in firebaseContent">
 		<p>{{content.name}}</p>
 	</div>
+
+	<h1>Add Content</h1>
+	<form class="dashboard-addContent"
+		  name="newContentForm"
+		  ng-submit="addContent()"
+		  novalidate>
+
+		<input type="text" name="name" placeholder="Name" autofocus ng-model="contentName" ng-required="true">
+
+		<input type="text" name="description" placeholder="Description" autofocus ng-model="contentDescription" ng-required="true">
+
+		<button type="submit">+</button>
+	</form>
 </section>
