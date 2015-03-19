@@ -27,6 +27,10 @@ exampleController.controller("DashboardController", ["$scope", "$firebase", func
 			$scope.contentDescription = "";
 		});
 	};
+
+	$scope.deleteContent = function(key){
+		firebaseContent.$remove(key);
+	};
 }]);
 
 exampleController.controller("ListController", ["$scope", "$http", function MyController($scope, $http){
