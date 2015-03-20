@@ -1,9 +1,19 @@
 var exampleController = angular.module("exampleController",["firebase"]);
 
-exampleController.controller("LoginController", ["$scope","$location", function MyController($scope, $location){
+exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin","$location", function MyController($scope, $firebaseSimpleLogin, $location){
+	var loginRef = new Firebase("https://flickering-fire-7979.firebaseio.com/dashboard");
+	var simpleLogin = $firebaseSimpleLogin(loginRef);
+
 	$scope.login = function(){
-		$location.path("/dashboard");
-	};
+		simpleLogin.$login("password",{
+			email: $scope.user.email,
+			password: $scope.user.password
+		}).then(function(user){
+			$location.path("/dashboard");
+		}, function(error){
+			$scope.message = error.toString();
+		});
+	}
 
 	$scope.register = function(){
 		$location.path("/dashboard");
