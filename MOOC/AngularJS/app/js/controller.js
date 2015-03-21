@@ -1,19 +1,15 @@
 var exampleController = angular.module("exampleController",["firebase"]);
 
-exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin","$location", function MyController($scope, $firebaseSimpleLogin, $location){
-	var loginRef = new Firebase("https://flickering-fire-7979.firebaseio.com/dashboard");
-	var simpleLogin = $firebaseSimpleLogin(loginRef);
+exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin","$location", "Authentication", function MyController($scope, $firebaseSimpleLogin, $location, Authentication){
 
 	$scope.login = function(){
-		simpleLogin.$login("password",{
-			email: $scope.user.email,
-			password: $scope.user.password
-		}).then(function(user){
+		Authentication.login($scope.user)
+		.then(function(user){
 			$location.path("/dashboard");
 		}, function(error){
 			$scope.message = error.toString();
 		});
-	}
+	};
 
 	$scope.register = function(){
 		$location.path("/dashboard");

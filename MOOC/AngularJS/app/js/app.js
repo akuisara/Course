@@ -2,7 +2,7 @@ var myApp = angular.module("myApp", [
 	"ngRoute",
 	"firebase",
 	"exampleController"
-]);
+]).constant("FIREBASE_URL", "https://flickering-fire-7979.firebaseio.com/dashboard");
 
 myApp.config(["$routeProvider", function($routeProvider){
 	$routeProvider.
