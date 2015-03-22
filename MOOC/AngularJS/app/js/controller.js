@@ -15,6 +15,13 @@ exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin"
 		$location.path("/dashboard");
 	};
 }]);
+
+exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogin", "$rootScope", function MyController($scope, $firebaseSimpleLogin, $rootScope){
+
+	$rootScope.$on('$firebaseSimpleLogin:login', function(e, user) {
+		$scope.userEmail = user.email;
+	});
+}]);
 	
 exampleController.controller("DashboardController", ["$scope", "$firebase", function MyController($scope, $firebase){
 
