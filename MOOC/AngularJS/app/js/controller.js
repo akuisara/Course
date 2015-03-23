@@ -16,10 +16,19 @@ exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin"
 	};
 }]);
 
-exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogin", "$rootScope", function MyController($scope, $firebaseSimpleLogin, $rootScope){
+exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogin", "$rootScope", "$location", "Authentication", function MyController($scope, $firebaseSimpleLogin, $rootScope, $location, Authentication){
+
+	$scope.logout = function() {
+		Authentication.logout();
+		$location.path("/login");
+	};
 
 	$rootScope.$on('$firebaseSimpleLogin:login', function(e, user) {
 		$scope.userEmail = user.email;
+	});
+
+	$rootScope.$on('$firebaseSimpleLogin:logout', function(e, user) {
+		$scope.userEmail = null;
 	});
 }]);
 	
