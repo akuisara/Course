@@ -12,7 +12,13 @@ exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin"
 	};
 
 	$scope.register = function(){
-		$location.path("/dashboard");
+		Authentication.register($scope.user)
+		.then(function(user){
+			Authentication.login($scope.user);
+			$location.path("/dashboard");
+		}, function(error){
+			$scope.message = error.toString();
+		});
 	};
 }]);
 

@@ -10,6 +10,10 @@ myApp.factory("Authentication", function($firebase, $firebaseSimpleLogin,FIREBAS
 			});
 		},
 
+		register: function(user){
+			return simpleLogin.$createUser(user.email, user.password);
+		},
+
 		logout: function(){
 			return simpleLogin.$logout();
 		}

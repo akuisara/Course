@@ -1,6 +1,8 @@
 <section class="signUp">
     <form name="signUpForm" ng-submit="register()" validate>
     	<h1>Sign Up</h1>
+        
+        <p class="error formerror" ng-show="message">{{message}}</p>
 
     	<input type="text" name="username" placeholder="Username" autofocus ng-model="user.username" ng-required="true">
     	<p class="error" ng-show="signUpForm.username.$invalid && signUpForm.username.$touched">Username Required</p>
