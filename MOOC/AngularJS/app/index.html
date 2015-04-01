@@ -23,8 +23,8 @@
     <header>
         <nav ng-controller="StatusController" ng-include="'partials/navbar.html'"></nav>
 
-        <div class="userinfo" ng-controller="StatusController" ng-show="userEmail">
-            <span class="user">Hi {{userEmail}}</span>
+        <div class="userinfo" ng-controller="StatusController" ng-show="currentUser">
+            <span class="user">Hi {{currentUser.username}}</span>
             <a href="#" ng-click="logout()">Logout</a>
             <hr>
         </div>

@@ -1,9 +1,9 @@
 <div class="navbar">
 	<ul>
 		<li><a href="#">Homepage</a></li>
-		<li ng-show="userEmail"><a href="#/dashboard">Dashboard</a></li>
-		<li ng-show="userEmail"><a href="#/list">List</a></li>
-		<li ng-hide="userEmail"><a href="#/login">Login</a></li>
-		<li ng-hide="userEmail"><a href="#/register">Register</a></li>
+		<li ng-show="currentUser"><a href="#/dashboard">Dashboard</a></li>
+		<li ng-show="currentUser"><a href="#/list">List</a></li>
+		<li ng-hide="currentUser"><a href="#/login">Login</a></li>
+		<li ng-hide="currentUser"><a href="#/register">Register</a></li>
 	</ul>
 </div>
