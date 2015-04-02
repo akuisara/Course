@@ -43,12 +43,24 @@ exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogi
 	});
 }]);
 	
-exampleController.controller("DashboardController", ["$scope", "$firebase", function MyController($scope, $firebase){
+exampleController.controller("DashboardController", ["$scope", "$firebase", "$rootScope", function MyController($scope, $firebase, $rootScope){
 
 	var firebaseRef = new Firebase("https://flickering-fire-7979.firebaseio.com/dashboard");
 	var firebaseContent = $firebase(firebaseRef);
+	var contentObj = $firebase(firebaseRef).$asObject();
+	var contentArray = $firebase(firebaseRef).$asArray();
 
-	$scope.firebaseContent = firebaseContent.$asObject();
+	contentObj.$loaded().then(function (data) {
+		$scope.userDashboard = contentObj;
+	});
+
+	contentArray.$loaded().then(function (data) {
+		$rootScope.contentNum = contentArray.length;
+	});
+
+	contentArray.$watch(function (event) {
+		$rootScope.contentNum = contentArray.length;
+	});
 
 	$scope.addContent = function(){
 		firebaseContent.$push({
