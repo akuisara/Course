@@ -43,39 +43,46 @@ exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogi
 	});
 }]);
 	
-exampleController.controller("DashboardController", ["$scope", "$firebase", "$rootScope", function MyController($scope, $firebase, $rootScope){
+exampleController.controller("DashboardController", ["$scope", "$firebase", "$firebaseSimpleLogin", "$rootScope", "FIREBASE_URL", function MyController($scope, $firebase, $rootScope, FIREBASE_URL, $firebaseSimpleLogin){
 
-	var firebaseRef = new Firebase("https://flickering-fire-7979.firebaseio.com/dashboard");
-	var firebaseContent = $firebase(firebaseRef);
-	var contentObj = $firebase(firebaseRef).$asObject();
-	var contentArray = $firebase(firebaseRef).$asArray();
+	var ref = new Firebase(FIREBASE_URL);
+	var simpleLogin = $firebaseSimpleLogin(ref);
 
-	contentObj.$loaded().then(function (data) {
-		$scope.userDashboard = contentObj;
+	$simpleLogin.$getCurrentUser().then(function (authUser){
+		if (authUser !== null){
+			var firebaseRef = new Firebase(FIREBASE_URL + "/user/" + authUser.uid + "/dashboard");
+			var firebaseContent = $firebase(firebaseRef);
+			var contentObj = $firebase(firebaseRef).$asObject();
+			var contentArray = $firebase(firebaseRef).$asArray();
+
+			contentObj.$loaded().then(function (data) {
+				$scope.userDashboard = contentObj;
+			});
+
+			contentArray.$loaded().then(function (data) {
+				$rootScope.contentNum = contentArray.length;
+			});
+
+			contentArray.$watch(function (event) {
+				$rootScope.contentNum = contentArray.length;
+			});
+
+			$scope.addContent = function(){
+				firebaseContent.$push({
+					name: $scope.contentName,
+					description: $scope.contentDescription,
+					date: Firebase.ServerValue.TIMESTAMP
+				}).then(function(){
+					$scope.contentName = "";
+					$scope.contentDescription = "";
+				});
+			};
+
+			$scope.deleteContent = function(key){
+				firebaseContent.$remove(key);
+			};
+		}
 	});
-
-	contentArray.$loaded().then(function (data) {
-		$rootScope.contentNum = contentArray.length;
-	});
-
-	contentArray.$watch(function (event) {
-		$rootScope.contentNum = contentArray.length;
-	});
-
-	$scope.addContent = function(){
-		firebaseContent.$push({
-			name: $scope.contentName,
-			description: $scope.contentDescription,
-			date: Firebase.ServerValue.TIMESTAMP
-		}).then(function(){
-			$scope.contentName = "";
-			$scope.contentDescription = "";
-		});
-	};
-
-	$scope.deleteContent = function(key){
-		firebaseContent.$remove(key);
-	};
 }]);
 
 exampleController.controller("ListController", ["$scope", "$http", function MyController($scope, $http){
