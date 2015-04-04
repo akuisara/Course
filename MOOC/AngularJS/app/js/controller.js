@@ -1,6 +1,6 @@
 var exampleController = angular.module("exampleController",["firebase"]);
 
-exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin","$location", "Authentication", function MyController($scope, $firebaseSimpleLogin, $location, Authentication){
+exampleController.controller("LoginController", function MyController($scope, $firebaseSimpleLogin, $location, Authentication){
 
 	$scope.login = function(){
 		Authentication.login($scope.user)
@@ -20,9 +20,9 @@ exampleController.controller("LoginController", ["$scope","$firebaseSimpleLogin"
 			$scope.message = error.toString();
 		});
 	};
-}]);
+});
 
-exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogin", "$rootScope", "$location", "Authentication", "$firebase", "FIREBASE_URL", function MyController($scope, $firebaseSimpleLogin, $rootScope, $location, Authentication, $firebase, FIREBASE_URL){
+exampleController.controller("StatusController", function MyController($scope, $firebaseSimpleLogin, $rootScope, $location, Authentication, $firebase, FIREBASE_URL){
 
 	$scope.logout = function() {
 		Authentication.logout();
@@ -30,7 +30,7 @@ exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogi
 	};
 
 	$rootScope.$on('$firebaseSimpleLogin:login', function(e, authUser) {
-		var ref = new Firebase(FIREBASE_URL + "/users/" + authUser.uid);
+		var ref = new Firebase(FIREBASE_URL + "/user/" + authUser.uid);
 		var user = $firebase(ref).$asObject();
 
 		user.$loaded().then(function(){
@@ -41,14 +41,14 @@ exampleController.controller("StatusController", ["$scope", "$firebaseSimpleLogi
 	$rootScope.$on('$firebaseSimpleLogin:logout', function(e, authUser) {
 		$rootScope.currentUser = null;
 	});
-}]);
+});
 	
-exampleController.controller("DashboardController", ["$scope", "$firebase", "$firebaseSimpleLogin", "$rootScope", "FIREBASE_URL", function MyController($scope, $firebase, $rootScope, FIREBASE_URL, $firebaseSimpleLogin){
+exampleController.controller("DashboardController", function MyController($scope, $firebase, $rootScope, FIREBASE_URL, $firebaseSimpleLogin){
 
-	var ref = new Firebase(FIREBASE_URL);
-	var simpleLogin = $firebaseSimpleLogin(ref);
+	var loginRef = new Firebase(FIREBASE_URL);
+	var simpleLogin = $firebaseSimpleLogin(loginRef);
 
-	$simpleLogin.$getCurrentUser().then(function (authUser){
+	simpleLogin.$getCurrentUser().then(function (authUser){
 		if (authUser !== null){
 			var firebaseRef = new Firebase(FIREBASE_URL + "/user/" + authUser.uid + "/dashboard");
 			var firebaseContent = $firebase(firebaseRef);
@@ -83,15 +83,15 @@ exampleController.controller("DashboardController", ["$scope", "$firebase", "$fi
 			};
 		}
 	});
-}]);
+});
 
-exampleController.controller("ListController", ["$scope", "$http", function MyController($scope, $http){
+exampleController.controller("ListController", function MyController($scope, $http){
 	$http.get("js/example.json").success(function(data){
 		$scope.choices = data;
 	});
-}]);
+});
 
-exampleController.controller("DetailsController", ["$scope", "$http", "$routeParams", function MyController($scope, $http, $routeParams){
+exampleController.controller("DetailsController", function MyController($scope, $http, $routeParams){
 	$http.get("js/example.json").success(function(data){
 		$scope.choices = data;
 		$scope.whichChoice = $routeParams.itemInstruction;
@@ -108,4 +108,4 @@ exampleController.controller("DetailsController", ["$scope", "$http", "$routePar
 			$scope.nextItem = 0;
 		}
 	});
-}]);
+});
