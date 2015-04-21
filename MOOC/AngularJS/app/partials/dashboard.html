@@ -5,7 +5,7 @@
 
 	<div ng-show="signedIn()" class="showDashboard">
 		<h1 ng-if="contentNum>0">My Dashboard</h1>
-		<div class="dashboard-content" ng-repeat="(key, content) in firebaseContent">
+		<div class="dashboard-content" ng-repeat="(key, content) in userDashboard">
 			<button ng-click="deleteContent(key)">-</button>
 			<p>{{content.name}}</p>
 		</div>
