@@ -33,13 +33,18 @@ void * Process_One_Line(void *);
 void * Align_Display_Text(void *);
 const int total_lines = 200;
 const int total_chars = 60;
-
+int count = 0;
+pthread_mutex_t mutex2, mutex3;
 int main() {
     
     char ** input_content = new char*[total_lines];
     for (int i = 0; i < total_lines; i++) {
         input_content[i] = new char[total_chars];
     }
+    pthread_mutex_init (&mutex2, NULL);
+    pthread_mutex_init (&mutex3, NULL);
+    pthread_mutex_lock (&mutex2);
+    pthread_mutex_lock(&mutex3);
     
     pthread_t thread1, thread2, thread3;
     pthread_create(&thread1, NULL, Store_Char_Array, (void *) input_content);
@@ -96,13 +101,14 @@ void * Store_Char_Array(void * ptr)
     
     int count_line = 0;
     string next_line;
-    while (!input_file.eof()) {
-        getline(input_file, next_line);
+    while (getline(input_file, next_line)) {
+        // getline(input_file, next_line);
+        pthread_mutex_unclock(&mutex2);
         count_line++;
         for(int i=0; i<next_line.length(); i++){
             temp_ptr[count_line][i] = next_line[i];
 //            Test:
-//            cout << count_line << '\t' << temp_ptr[count_line][i] << endl;
+           cout << count_line << '\t' << temp_ptr[count_line][i] << endl;
         }
     }
 }
@@ -118,6 +124,12 @@ void * Process_One_Line(void * ptr)
     
     // Pass the pointer (pass by reference), and then cast void pointer to struct storeSublist
     char **temp_ptr = (char **) ptr;
+    pthread_mutex_lock(&mutex2);
+    count++;
+    for (int i=0; i < count; i++){
+
+    }
+
     
 }
 
