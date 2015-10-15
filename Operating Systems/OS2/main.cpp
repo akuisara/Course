@@ -126,8 +126,25 @@ void * Process_One_Line(void * ptr)
     char **temp_ptr = (char **) ptr;
     pthread_mutex_lock(&mutex2);
     count++;
+    int j=0;
     for (int i=0; i < count; i++){
+        j=0;
+        while (temp_ptr[i][j]!='\n'){
+            if (temp_ptr[i][j]=='\\'){
+                if (temp_ptr[i][j+1]=='c'){
+                    temp_ptr[i][j] = upper_case(temp_ptr[i][j+2]);
+                    while (temp_ptr[i][j]!='\n'){
+                        temp_ptr[i][j]
+                    }
+                }
+                else if (temp_ptr[i][j+1]=='C'){
 
+                }
+                else if(temp_ptr[i][j+1]=='u'){
+
+                }
+            }
+        }
     }
 
     
