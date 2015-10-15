@@ -132,18 +132,34 @@ void * Process_One_Line(void * ptr)
         while (temp_ptr[i][j]!='\n'){
             if (temp_ptr[i][j]=='\\'){
                 if (temp_ptr[i][j+1]=='c'){
-                    temp_ptr[i][j] = upper_case(temp_ptr[i][j+2]);
-                    while (temp_ptr[i][j]!='\n'){
-                        temp_ptr[i][j]
+                    temp_ptr[i][j] = toupper(temp_ptr[i][j+2]);
+                    while (temp_ptr[i][j+3]!='\n'){
+                        temp_ptr[i][j+1] = temp_ptr[i][j+3];
+                        j++;
                     }
                 }
                 else if (temp_ptr[i][j+1]=='C'){
+                    while(temp_ptr[i][j+2] != ' '){
+                        temp_ptr[i][j] = temp_ptr[i][j+2];
+                        j++;
+                    }
+                    while(temp_ptr[i][j] != '\n')
+                    {
+                        temp_ptr[i][j] = temp_ptr[i][j+2];
+                        j++;
+                    }
 
                 }
                 else if(temp_ptr[i][j+1]=='u'){
-
+                    temp_ptr[i][j] = '_';
+                    while(temp_ptr[i][j+1]!=' '){
+                        temp_ptr[i][j+1] = temp_ptr[i][j+2];
+                        j++;
+                    }
+                    temp_ptr[i][j] = '_';
                 }
             }
+            j++;
         }
     }
 
