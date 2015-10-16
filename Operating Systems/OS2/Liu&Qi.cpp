@@ -13,7 +13,6 @@
             Prompt to enter input filename
             Error messages while file not found
     2) Output files: finalAnswer.txt
-
  - We have abided by the Wheaton College honor code in this work.
 */
 
@@ -238,44 +237,54 @@ void * Align_Display_Text(void * ptr)
         }
         // cout << "countnum  " << countnum << endl;
         int index = 0;
-        for(int j = 0; j < countnum; j++){
-            if(temp_ptr[i][j] == ' '){
-                index = j;
+        if (threadOneDone && threadTwoDone){
+            for (int j =0; j< countnum; j++){
+                outfile << temp_ptr[i][j];
             }
-        }
-        // cout << "index  " << index << endl;
-
-        for(int j = 0; j < index; j++){
-            // ptr2[i][j] = temp_ptr[i][j];
-            // cout << temp_ptr[i][j];
-            outfile << temp_ptr[i][j];  
-        }
+            outfile << endl;
+            cout << "hahaha";
         
-        for(int k = index; k < (outcolumn - countnum + index); k++){
-        //  ptr2[i][k] = ' ';
-            // cout << ' ';
-            outfile << ' ';
+            cout << endl;
+            outfile.close();
+
         }
-        
-        for(int l = (outcolumn - countnum + index); l < outcolumn; l++){
-        //  ptr2[i][l] = temp_ptr[i][l-(50 - countnum)];
-            // cout << temp_ptr[i][l-(50 - countnum)];
-            outfile << temp_ptr[i][l-(outcolumn - countnum)];
+        else{
+            for(int j = 0; j < countnum; j++){
+                if(temp_ptr[i][j] == ' '){
+                    index = j;
+                }
+            }
+            // cout << "index  " << index << endl;
+
+            for(int j = 0; j < index; j++){
+
+                // cout << temp_ptr[i][j];
+                outfile << temp_ptr[i][j];  
+            }
+            
+            for(int k = index; k < (outcolumn - countnum + index); k++){
+
+                // cout << ' ';
+                outfile << ' ';
+            }
+            
+            for(int l = (outcolumn - countnum + index); l < outcolumn; l++){
+
+                // cout << temp_ptr[i][l-(50 - countnum)];
+                outfile << temp_ptr[i][l-(outcolumn - countnum)];
+            }
+
+            
+            counter--;
+
+            cout << "Counter: " << counter << endl;
+            cout << "unlock 1\n\n" << endl;
+
+            // Unlock thread 1
+            pthread_mutex_unlock (&mutex1);
+            outfile << endl;
+            i++;
         }
-
-        outfile << endl;
-
-        
-        cout << endl;
-
-        counter--;
-
-        cout << "Counter: " << counter << endl;
-        cout << "unlock 1\n\n" << endl;
-
-        // Unlock thread 1
-        pthread_mutex_unlock (&mutex1);
-        i++;
     }
-    outfile.close();
+    
 }
