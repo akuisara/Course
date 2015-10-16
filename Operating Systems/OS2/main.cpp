@@ -6,12 +6,12 @@
  
  Input: 
     1) Input from keyboard: Filename
-    2) An input file
+    2) An input text file of any length, which contains normal words, punctuations, and control sequences '\c' (capitalize the first letter of the next word), '\C' (capitalize all of the letters of the next word), and '\u' (underline the next word (simulate this by _word_))
  
  Output:
     1) Output on console:
-        Prompt to enter input filename
-        Error messages while file not found
+            Prompt to enter input filename
+            Error messages while file not found
     2) Output files: finalAnswer.txt
 
  - We have abided by the Wheaton College honor code in this work.
@@ -156,7 +156,6 @@ void * Process_One_Line(void * ptr)
 
     int j=0, i=0;
     while (!threadOneDone) {
-        // counter++;
         // Lock itself
         pthread_mutex_lock(&mutex2);
         cout << "Counter: " << counter << endl;
@@ -230,11 +229,8 @@ void * Align_Display_Text(void * ptr)
 
     int i = 0;
     while (!threadOneDone || !threadTwoDone) {
-    // for(int i = 0; i <= counter+1; i++){
         // Lock itself
         pthread_mutex_lock (&mutex3);
-        cout << "-------------This is in thread 3----------------\n";
-        cout << "lock 3 test" << endl;
 
         int countnum = 0;
         while(temp_ptr[i][countnum] != 0){
