@@ -232,7 +232,7 @@ void * Align_Display_Text(void * ptr)
         while(temp_ptr[i][countnum] != 0){
             countnum++;
         }
-
+        int index = 0;
         // check if both thread one and two are done
         // if it is, just print out the last line
         if (threadOneDone && threadTwoDone){
@@ -247,14 +247,16 @@ void * Align_Display_Text(void * ptr)
         }
         //if not, put space into the last space
         else{
+
             //get the space in the row
+            
             for(int j = 0; j < countnum; j++){
                 if(temp_ptr[i][j] == ' '){
                     index = j;
                 }
             }
             //insert in spaces where there are space to fill 50 slot
-            int index = 0;
+            
             for(int j = 0; j < index; j++){
 
                 cout << temp_ptr[i][j];
@@ -262,7 +264,7 @@ void * Align_Display_Text(void * ptr)
             }
             
             for(int k = index; k < (outcolumn - countnum + index); k++){
-                
+
                 cout << ' ';
                 outfile << ' ';
             }
