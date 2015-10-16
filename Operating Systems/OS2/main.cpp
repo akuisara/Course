@@ -1,21 +1,20 @@
 /*
- Qi (Sara) Zhang
+ Jingxian Liu & Qi (Sara) Zhang
  Program Name: Project OS2
  
  Purpose:
  
  Input: 
-    1) Input from keyboard:
-        Filename
-    2) Input files:
+    1) Input from keyboard: Filename
+    2) An input file
  
  Output:
     1) Output on console:
-        Prompt to enter input filename if enabled, otherwise only the input filename will show up
+        Prompt to enter input filename
         Error messages while file not found
-    2) Output files:
+    2) Output files: finalAnswer.txt
 
- - I have abided by the Wheaton College honor code in this work.
+ - We have abided by the Wheaton College honor code in this work.
 */
 
 #include <iostream>
@@ -35,42 +34,47 @@ using namespace std;
 void * Store_Char_Array(void *);
 void * Process_One_Line(void *);
 void * Align_Display_Text(void *);
+
+// Global constants and variables
 const int total_lines = 200;
 const int total_chars = 60;
-int count = 1;
-pthread_mutex_t mutex1, mutex2, mutex3;
 const int outcolumn=50;
+int counter = 1;
+pthread_mutex_t mutex1, mutex2, mutex3;  // Count semaphores
+
 int main() {
     
+    // Initialize a two dimensional array with 200 lines, and 60 characters per line
     char ** input_content = new char*[total_lines];
     for (int i = 0; i < total_lines; i++) {
         input_content[i] = new char[total_chars];
     }
+
+    // Set up semaphores
     pthread_mutex_init (&mutex1, NULL);
     pthread_mutex_init (&mutex2, NULL);
     pthread_mutex_init (&mutex3, NULL);
+
+    // Lock mutex2 and mutex3
     pthread_mutex_lock (&mutex2);
-    // cout << "lock 2" << endl;
     pthread_mutex_lock (&mutex3);
-    // cout << "lock 3" << endl;
     
+    // Initialize and create three processes
     pthread_t thread1, thread2, thread3;
     pthread_create(&thread1, NULL, Store_Char_Array, (void *) input_content);
     pthread_create(&thread2, NULL, Process_One_Line, (void *) input_content);
     pthread_create(&thread3, NULL, Align_Display_Text, (void *) input_content);
     
+    // Wait for each thread to finish
     pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);
     pthread_join(thread3, NULL);
-    
-    // // Declare output stream
-    // ofstream output_file;
-    
-    // // Generate the output into an output file called "finalAnswer.txt"
-    // output_file.open("finalAnswer.txt");
-    
-    // output_file.close();
-    
+
+    // Deallocate semaphores
+    pthread_mutex_destroy (&mutex1);
+    pthread_mutex_destroy (&mutex2);
+    pthread_mutex_destroy (&mutex3);
+
     return 0;
 }
 
@@ -89,11 +93,11 @@ void * Store_Char_Array(void * ptr)
     
     // Declare and set input filename
     string filename;
-    filename = "text.txt";
     
     // Get input filename from keyboard
     // cout << "Please enter filename: (e.g., randomNums.txt)\n";
     // getline(cin, filename);
+    filename = "text.txt";
     
     cout << "Filename: " << filename << endl;
     
@@ -110,22 +114,20 @@ void * Store_Char_Array(void * ptr)
     int count_line = 0;
     string next_line;
     while (getline(input_file, next_line)) {
-        // getline(input_file, next_line);
 
+        // Lock itself
         pthread_mutex_lock(&mutex1);
         cout << "lock 1" << endl;
        
-
         for(int i=0; i<next_line.length(); i++){
             temp_ptr[count_line][i] = next_line[i];
-//            Test:
-           // cout << count_line << '\t' << temp_ptr[count_line][i] << endl;
-
         }
         count_line++;
+
+        // Unlock thread 2
         pthread_mutex_unlock(&mutex2);
-        count++;
-        cout << count << endl;
+        counter++;
+        cout << "Counter: " << counter << endl;
         cout << "unlock 2" << endl;
     }
 }
@@ -142,23 +144,25 @@ void * Process_One_Line(void * ptr)
     // Pass the pointer (pass by reference), and then cast void pointer to struct storeSublist
     char **temp_ptr = (char **) ptr;
 
-
-
     int j=0;
-    for (int i=0; i < count; i++){
+    for (int i=0; i < counter; i++){
+        // Lock itself
         pthread_mutex_lock(&mutex2);
         cout << "lock 2" << endl;
+        cout << "Counter: " << counter << endl;
+
         // cout << i << endl;
         j=0;
         while (temp_ptr[i][j]!= 0){
             // cout << i << endl;
-            // cout << temp_ptr[i][j] << endl;
             if (temp_ptr[i][j]=='\\'){
+                // Capitalize the first letter of the next word if the word is led by \c
                 if (temp_ptr[i][j+1]=='c'){
                     temp_ptr[i][j+2] = toupper(temp_ptr[i][j+2]);
                     temp_ptr[i][j] = ' ';
                     temp_ptr[i][j+1] =' ';
                 }
+                // Capitalize all of the letters of the next word if the word is led by \C
                 else if (temp_ptr[i][j+1]=='C'){
                     
                     int temp = j;
@@ -168,9 +172,9 @@ void * Process_One_Line(void * ptr)
                     }
                     temp_ptr[i][j] = ' ';
                     temp_ptr[i][j+1] = ' ';
-                    
 
                 }
+                // Underline the next word (simulate this by _word_) if the word is led by \u
                 else if(temp_ptr[i][j+1]=='u'){
                     temp_ptr[i][j] = '_';
                     int temp = j;
@@ -185,11 +189,12 @@ void * Process_One_Line(void * ptr)
             j++;
         }
         // cout  << temp_ptr[i][0] << endl;
+
+        // Unlock thread 3
         pthread_mutex_unlock(&mutex3);
+        cout << "Counter: " << counter << endl;
         cout << "unlock 3" << endl;
     }
-
-    
 }
 
 
@@ -202,20 +207,20 @@ void * Align_Display_Text(void * ptr)
      */
     
     // Pass the pointer (pass by reference), and then cast void pointer to struct storeSublist
-    // Declare output stream
-    // ofstream output_file;
-    
-    // Generate the output into an output file called "finalAnswer.txt"
     char ** temp_ptr = (char **) ptr;
 
+    // Declare output stream
     ofstream outfile;
+    // Generate the output into an output file called "finalAnswer.txt"
     outfile.open("finalAnswer.txt");
 
 
-    for(int i = 0; i <= count; i++){
+    for(int i = 0; i <= counter; i++){
+        // Lock itself
         pthread_mutex_lock (&mutex3);
+        cout << "lock 3" << endl;
+        cout << "Counter: " << counter << endl;
 
-        cout << "lock 3 test" << endl;
 
         int countnum = 0;
         while(temp_ptr[i][countnum] != 0){
@@ -253,12 +258,12 @@ void * Align_Display_Text(void * ptr)
         
         cout << endl;
 
+        // Unlock thread 1
         pthread_mutex_unlock (&mutex1);
 
-        cout << "unlock 1 test" << endl;
+        cout << "Counter: " << counter << endl;
+        cout << "unlock 1" << endl;
     }
 
     outfile.close();
-
-    
 }
