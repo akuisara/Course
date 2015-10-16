@@ -39,6 +39,7 @@ const int total_lines = 200;
 const int total_chars = 60;
 int count = 1;
 pthread_mutex_t mutex1, mutex2, mutex3;
+const int outcolumn=50;
 int main() {
     
     char ** input_content = new char*[total_lines];
@@ -160,13 +161,14 @@ void * Process_One_Line(void * ptr)
                 }
                 else if (temp_ptr[i][j+1]=='C'){
                     
+                    int temp = j;
+                    while(temp_ptr[i][temp+2] != ' ' && temp_ptr[i][temp+2] != 0){
+                        temp_ptr[i][temp+2] = toupper(temp_ptr[i][temp+2]);
+                        temp++;
+                    }
                     temp_ptr[i][j] = ' ';
-                    cout << temp_ptr[i][j]<< endl;
-                    temp_ptr[i][j+1] =' ';
-                    // while(temp_ptr[i][j+2] != ' '  ){
-                    //     temp_ptr[i][j+2] = toupper(temp_ptr[i][j+2]);
-                    //     j++;
-                    // }
+                    temp_ptr[i][j+1] = ' ';
+                    
 
                 }
                 else if(temp_ptr[i][j+1]=='u'){
@@ -204,58 +206,59 @@ void * Align_Display_Text(void * ptr)
     // ofstream output_file;
     
     // Generate the output into an output file called "finalAnswer.txt"
-    char **temp_ptr = (char **) ptr;
+    char ** temp_ptr = (char **) ptr;
 
-    char ** final_ptr = new char* [count];
-    for(int i = 0; i < count; i ++){
-        final_ptr[i] = new char[50];
-    }
-    // cout << "here" << endl;
     ofstream outfile;
     outfile.open("finalAnswer.txt");
 
-    for(int i = 0; i < count; i++){
-        pthread_mutex_lock(&mutex3); 
-        cout << "lock 3" << endl;
-        cout << count << endl;
+
+    for(int i = 0; i <= count; i++){
+        pthread_mutex_lock (&mutex3);
+
+        cout << "lock 3 test" << endl;
+
         int countnum = 0;
         while(temp_ptr[i][countnum] != 0){
             countnum++;
-            // cout << countnum << endl;
         }
+        cout << "countnum  " << countnum << endl;
         int index = 0;
-        bool findSpace = true;
-        while(findSpace){
-            for(int j = 0; j < 50; j++){
-                if(temp_ptr[i][j] == ' '){
-                    index = j;
-                    cout << temp_ptr[i][index] << endl;
-                    cout << index << endl;
-                    findSpace = false;
-                    cout << findSpace << endl;
-                }
+        for(int j = 0; j < countnum; j++){
+            if(temp_ptr[i][j] == ' '){
+                index = j;
             }
         }
-        for(int j = 0; j <= index; j++){
-            final_ptr[i][j] = temp_ptr[i][j]; 
-            cout << final_ptr[i][j];
-            outfile << temp_ptr[i][j];   
+        cout << "index  " << index << endl;
+
+        for(int j = 0; j < index; j++){
+            // ptr2[i][j] = temp_ptr[i][j];
+            cout << temp_ptr[i][j];
+            outfile << temp_ptr[i][j];  
         }
-        // cout <<endl;
-        for(int k = index; k < (50 - countnum + index); k++){
-            final_ptr[i][k] = ' ';
+        
+        for(int k = index; k < (outcolumn - countnum + index); k++){
+        //  ptr2[i][k] = ' ';
+            cout << ' ';
             outfile << ' ';
         }
-        for(int l = (50 - countnum + index); l < 50; l++){
-            final_ptr[i][l] = temp_ptr[i][l-(50 - countnum)];
-            outfile << temp_ptr[i][l-(50 - countnum)];
+        
+        for(int l = (outcolumn - countnum + index); l < outcolumn; l++){
+        //  ptr2[i][l] = temp_ptr[i][l-(50 - countnum)];
+            cout << temp_ptr[i][l-(50 - countnum)];
+            outfile << temp_ptr[i][l-(outcolumn - countnum)];
         }
-        outfile << endl;
-        pthread_mutex_unlock(&mutex1);
-        cout  << "unlock1" << endl;
-    }
-    outfile.close();
 
+        outfile << endl;
+
+        
+        cout << endl;
+
+        pthread_mutex_unlock (&mutex1);
+
+        cout << "unlock 1 test" << endl;
+    }
+
+    outfile.close();
 
     
 }
