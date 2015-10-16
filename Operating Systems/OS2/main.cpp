@@ -118,9 +118,10 @@ void * Store_Char_Array(void * ptr)
 
     while (getline(input_file, next_line)) {
         counter++;
-
         // Lock itself
+        // pthread_mutex_lock(&mutex2);
         pthread_mutex_lock(&mutex1);
+        cout << "-------------This is in thread 1----------------\n";
         cout << "lock 1" << endl;
        
         for(int i=0; i<next_line.length(); i++){
@@ -129,14 +130,14 @@ void * Store_Char_Array(void * ptr)
 
         count_line++;
 
-        cout << counter << endl;
+        cout << "Counter: " << counter << endl;
         cout << "unlock 2\n\n" << endl;
+
         // Unlock thread 2
         pthread_mutex_unlock(&mutex2);
 
     }
-    
-
+        
 }
 
 
@@ -152,10 +153,11 @@ void * Process_One_Line(void * ptr)
     char **temp_ptr = (char **) ptr;
 
     int j=0;
-    for (int i=0; i <= counter; i++){
+    for (int i=0; i <= counter+1; i++){
+        // counter++;
         // Lock itself
         pthread_mutex_lock(&mutex2);
-        // counter ++;
+        cout << "Counter: " << counter << endl;
         cout << "lock 2" << endl;
 
         // cout << i << endl;
@@ -223,10 +225,10 @@ void * Align_Display_Text(void * ptr)
     outfile.open("finalAnswer.txt");
 
 
-    for(int i = 0; i <= counter; i++){
+    for(int i = 0; i <= counter+1; i++){
         // Lock itself
         pthread_mutex_lock (&mutex3);
-
+        cout << "Counter: " << counter << endl;
         cout << "lock 3 test" << endl;
 
         int countnum = 0;
