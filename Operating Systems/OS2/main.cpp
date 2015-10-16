@@ -24,8 +24,12 @@
 #include <unistd.h>
 #include <cstdlib> // Avoid the error related to exit() function
 #include <pthread.h>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <semaphore.h>
 
+
+using namespace std;
 
 // Function declarations
 void * Store_Char_Array(void *);
@@ -33,18 +37,21 @@ void * Process_One_Line(void *);
 void * Align_Display_Text(void *);
 const int total_lines = 200;
 const int total_chars = 60;
-int count = 0;
-pthread_mutex_t mutex2, mutex3;
+int count = 1;
+pthread_mutex_t mutex1, mutex2, mutex3;
 int main() {
     
     char ** input_content = new char*[total_lines];
     for (int i = 0; i < total_lines; i++) {
         input_content[i] = new char[total_chars];
     }
+    pthread_mutex_init (&mutex1, NULL);
     pthread_mutex_init (&mutex2, NULL);
     pthread_mutex_init (&mutex3, NULL);
     pthread_mutex_lock (&mutex2);
-    pthread_mutex_lock(&mutex3);
+    // cout << "lock 2" << endl;
+    pthread_mutex_lock (&mutex3);
+    // cout << "lock 3" << endl;
     
     pthread_t thread1, thread2, thread3;
     pthread_create(&thread1, NULL, Store_Char_Array, (void *) input_content);
@@ -55,13 +62,13 @@ int main() {
     pthread_join(thread2, NULL);
     pthread_join(thread3, NULL);
     
-    // Declare output stream
-    ofstream output_file;
+    // // Declare output stream
+    // ofstream output_file;
     
-    // Generate the output into an output file called "finalAnswer.txt"
-    output_file.open("finalAnswer.txt");
+    // // Generate the output into an output file called "finalAnswer.txt"
+    // output_file.open("finalAnswer.txt");
     
-    output_file.close();
+    // output_file.close();
     
     return 0;
 }
@@ -103,13 +110,22 @@ void * Store_Char_Array(void * ptr)
     string next_line;
     while (getline(input_file, next_line)) {
         // getline(input_file, next_line);
-        pthread_mutex_unclock(&mutex2);
-        count_line++;
+
+        pthread_mutex_lock(&mutex1);
+        cout << "lock 1" << endl;
+       
+
         for(int i=0; i<next_line.length(); i++){
             temp_ptr[count_line][i] = next_line[i];
 //            Test:
-           cout << count_line << '\t' << temp_ptr[count_line][i] << endl;
+           // cout << count_line << '\t' << temp_ptr[count_line][i] << endl;
+
         }
+        count_line++;
+        pthread_mutex_unlock(&mutex2);
+        count++;
+        cout << count << endl;
+        cout << "unlock 2" << endl;
     }
 }
 
@@ -124,43 +140,51 @@ void * Process_One_Line(void * ptr)
     
     // Pass the pointer (pass by reference), and then cast void pointer to struct storeSublist
     char **temp_ptr = (char **) ptr;
-    pthread_mutex_lock(&mutex2);
-    count++;
+
+
+
     int j=0;
     for (int i=0; i < count; i++){
+        pthread_mutex_lock(&mutex2);
+        cout << "lock 2" << endl;
+        // cout << i << endl;
         j=0;
-        while (temp_ptr[i][j]!='\n'){
+        while (temp_ptr[i][j]!= 0){
+            // cout << i << endl;
+            // cout << temp_ptr[i][j] << endl;
             if (temp_ptr[i][j]=='\\'){
                 if (temp_ptr[i][j+1]=='c'){
-                    temp_ptr[i][j] = toupper(temp_ptr[i][j+2]);
-                    while (temp_ptr[i][j+3]!='\n'){
-                        temp_ptr[i][j+1] = temp_ptr[i][j+3];
-                        j++;
-                    }
+                    temp_ptr[i][j+2] = toupper(temp_ptr[i][j+2]);
+                    temp_ptr[i][j] = ' ';
+                    temp_ptr[i][j+1] =' ';
                 }
                 else if (temp_ptr[i][j+1]=='C'){
-                    while(temp_ptr[i][j+2] != ' '){
-                        temp_ptr[i][j] = temp_ptr[i][j+2];
-                        j++;
-                    }
-                    while(temp_ptr[i][j] != '\n')
-                    {
-                        temp_ptr[i][j] = temp_ptr[i][j+2];
-                        j++;
-                    }
+                    
+                    temp_ptr[i][j] = ' ';
+                    cout << temp_ptr[i][j]<< endl;
+                    temp_ptr[i][j+1] =' ';
+                    // while(temp_ptr[i][j+2] != ' '  ){
+                    //     temp_ptr[i][j+2] = toupper(temp_ptr[i][j+2]);
+                    //     j++;
+                    // }
 
                 }
                 else if(temp_ptr[i][j+1]=='u'){
                     temp_ptr[i][j] = '_';
-                    while(temp_ptr[i][j+1]!=' '){
-                        temp_ptr[i][j+1] = temp_ptr[i][j+2];
-                        j++;
+                    int temp = j;
+                    while(temp_ptr[i][temp+1]!=' ' && temp_ptr[i][temp+1] != '\n'){
+                        temp_ptr[i][temp+1] = temp_ptr[i][temp+2];
+                        temp++;
                     }
-                    temp_ptr[i][j] = '_';
+                    temp_ptr[i][temp] = '_';
                 }
             }
+            cout << "j :"<< j << endl;
             j++;
         }
+        // cout  << temp_ptr[i][0] << endl;
+        pthread_mutex_unlock(&mutex3);
+        cout << "unlock 3" << endl;
     }
 
     
@@ -176,6 +200,62 @@ void * Align_Display_Text(void * ptr)
      */
     
     // Pass the pointer (pass by reference), and then cast void pointer to struct storeSublist
+    // Declare output stream
+    // ofstream output_file;
+    
+    // Generate the output into an output file called "finalAnswer.txt"
     char **temp_ptr = (char **) ptr;
+
+    char ** final_ptr = new char* [count];
+    for(int i = 0; i < count; i ++){
+        final_ptr[i] = new char[50];
+    }
+    // cout << "here" << endl;
+    ofstream outfile;
+    outfile.open("finalAnswer.txt");
+
+    for(int i = 0; i < count; i++){
+        pthread_mutex_lock(&mutex3); 
+        cout << "lock 3" << endl;
+        cout << count << endl;
+        int countnum = 0;
+        while(temp_ptr[i][countnum] != 0){
+            countnum++;
+            // cout << countnum << endl;
+        }
+        int index = 0;
+        bool findSpace = true;
+        while(findSpace){
+            for(int j = 0; j < 50; j++){
+                if(temp_ptr[i][j] == ' '){
+                    index = j;
+                    cout << temp_ptr[i][index] << endl;
+                    cout << index << endl;
+                    findSpace = false;
+                    cout << findSpace << endl;
+                }
+            }
+        }
+        for(int j = 0; j <= index; j++){
+            final_ptr[i][j] = temp_ptr[i][j]; 
+            cout << final_ptr[i][j];
+            outfile << temp_ptr[i][j];   
+        }
+        // cout <<endl;
+        for(int k = index; k < (50 - countnum + index); k++){
+            final_ptr[i][k] = ' ';
+            outfile << ' ';
+        }
+        for(int l = (50 - countnum + index); l < 50; l++){
+            final_ptr[i][l] = temp_ptr[i][l-(50 - countnum)];
+            outfile << temp_ptr[i][l-(50 - countnum)];
+        }
+        outfile << endl;
+        pthread_mutex_unlock(&mutex1);
+        cout  << "unlock1" << endl;
+    }
+    outfile.close();
+
+
     
 }
