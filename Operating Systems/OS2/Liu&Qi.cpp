@@ -2,7 +2,7 @@
  Jingxian Liu & Qi (Sara) Zhang
  Program Name: Project OS2
  
- Purpose:
+ Purpose: The purpose of this project is to use both threads and semaphonres to ...
  
  Input: 
     1) Input from keyboard: Filename
@@ -13,6 +13,7 @@
             Prompt to enter input filename
             Error messages while file not found
     2) Output files: finalAnswer.txt
+
  - We have abided by the Wheaton College honor code in this work.
 */
 
@@ -34,13 +35,13 @@ void * Store_Char_Array(void *);
 void * Process_One_Line(void *);
 void * Align_Display_Text(void *);
 
-// Global constants and variables
+// Declare global constants and variables
 const int total_lines = 200;
 const int total_chars = 60;
 const int outcolumn=50;
-int counter = 0;
 pthread_mutex_t mutex1, mutex2, mutex3;  // Counter semaphores
 
+// Declare global boolean values
 bool threadOneDone = false;
 bool threadTwoDone = false;
 
@@ -77,17 +78,15 @@ int main() {
     pthread_mutex_destroy (&mutex2);
     pthread_mutex_destroy (&mutex3);
 
-    cout << endl << "Done" << endl;
-
     return 0;
 }
 
 
 void * Store_Char_Array(void * ptr)
 {
-    /* This function
-     - Pre-condition:
-     - Post-condition:
+    /* This function takes value from an input file and store the value into a two dimensional array, which has 200 lines in total, and 60 characters per line.
+     - Pre-condition: An character array pointer 'ptr' needs to be passed into this function. 'ptr' points to a two dimensional array.
+     - Post-condition: The modified 'ptr' will be passed back to the main function by reference.
      - Return: None
      */
     
@@ -116,37 +115,32 @@ void * Store_Char_Array(void * ptr)
     
     int count_line = 0;
     string next_line;
-    
 
     while (getline(input_file, next_line)) {
         // Lock itself
         pthread_mutex_lock(&mutex1);
-        cout << "lock 1" << endl;
        
         for(int i=0; i<next_line.length(); i++){
             temp_ptr[count_line][i] = next_line[i];
         }
 
         count_line++;
-        counter++;
-
-        cout << "Counter: " << counter << endl;
-        cout << "unlock 2\n\n" << endl;
 
         // Unlock thread 2
         pthread_mutex_unlock(&mutex2);
 
     }
 
+    // Change the boolean value after the first thread finished
     threadOneDone = true;
 }
 
 
 void * Process_One_Line(void * ptr)
 {
-    /* This function 
-     - Pre-condition:
-     - Post-condition:
+    /* This function handles each line of the two dimensional array, and changes the characters based on the rules of the control sequences.
+     - Pre-condition: An character array pointer 'ptr' needs to be passed into this function. 'ptr' points to a two dimensional array.
+     - Post-condition: The modified 'ptr' will be passed back to the main function by reference.
      - Return: None
      */
     
@@ -154,16 +148,13 @@ void * Process_One_Line(void * ptr)
     char **temp_ptr = (char **) ptr;
 
     int j=0, i=0;
+    // Running thread 2 while the first thread has not finished running
     while (!threadOneDone) {
         // Lock itself
         pthread_mutex_lock(&mutex2);
-        cout << "Counter: " << counter << endl;
-        cout << "lock 2" << endl;
 
-        // cout << i << endl;
         j=0;
         while (temp_ptr[i][j]!= 0){
-            // cout << i << endl;
             if (temp_ptr[i][j]=='\\'){
                 // Capitalize the first letter of the next word if the word is led by \c
                 if (temp_ptr[i][j+1]=='c'){
@@ -198,13 +189,12 @@ void * Process_One_Line(void * ptr)
         }
         i++;
 
-        cout << "Counter: " << counter << endl;
-        cout << "unlock 3\n\n" << endl;
-
         // Unlock thread 3
         pthread_mutex_unlock(&mutex3);
         
     }
+
+    // Change the boolean value after the second thread finished
     threadTwoDone = true;
 
 }
@@ -212,9 +202,9 @@ void * Process_One_Line(void * ptr)
 
 void * Align_Display_Text(void * ptr)
 {
-    /* This function
-     - Pre-condition:
-     - Post-condition:
+    /* This function takes each of the modified line and displays the text on both the console and the screen. The output is left and right justified.
+     - Pre-condition: An character array pointer 'ptr' needs to be passed into this function. 'ptr' points to a two dimensional array.
+     - Post-condition: The modified 'ptr' will be passed back to the main function by reference.
      - Return: None
      */
     
@@ -227,6 +217,7 @@ void * Align_Display_Text(void * ptr)
     outfile.open("finalAnswer.txt");
 
     int i = 0;
+    // Running thread 3 while the first and the second threads have not finished running
     while (!threadOneDone || !threadTwoDone) {
         // Lock itself
         pthread_mutex_lock (&mutex3);
@@ -235,14 +226,13 @@ void * Align_Display_Text(void * ptr)
         while(temp_ptr[i][countnum] != 0){
             countnum++;
         }
-        // cout << "countnum  " << countnum << endl;
+
         int index = 0;
         if (threadOneDone && threadTwoDone){
             for (int j =0; j< countnum; j++){
                 outfile << temp_ptr[i][j];
             }
             outfile << endl;
-            cout << "hahaha";
         
             cout << endl;
             outfile.close();
@@ -254,36 +244,31 @@ void * Align_Display_Text(void * ptr)
                     index = j;
                 }
             }
-            // cout << "index  " << index << endl;
 
             for(int j = 0; j < index; j++){
 
-                // cout << temp_ptr[i][j];
+                cout << temp_ptr[i][j];
                 outfile << temp_ptr[i][j];  
             }
             
             for(int k = index; k < (outcolumn - countnum + index); k++){
 
-                // cout << ' ';
+                cout << ' ';
                 outfile << ' ';
             }
             
             for(int l = (outcolumn - countnum + index); l < outcolumn; l++){
 
-                // cout << temp_ptr[i][l-(50 - countnum)];
+                cout << temp_ptr[i][l-(50 - countnum)];
                 outfile << temp_ptr[i][l-(outcolumn - countnum)];
             }
 
-            
-            counter--;
-
-            cout << "Counter: " << counter << endl;
-            cout << "unlock 1\n\n" << endl;
+            i++;
 
             // Unlock thread 1
             pthread_mutex_unlock (&mutex1);
+            cout << endl;
             outfile << endl;
-            i++;
         }
     }
     
