@@ -39,8 +39,8 @@ void * Align_Display_Text(void *);
 const int total_lines = 200;
 const int total_chars = 60;
 const int outcolumn=50;
-int counter = 1;
-pthread_mutex_t mutex1, mutex2, mutex3;  // Count semaphores
+int counter = 0;
+pthread_mutex_t mutex1, mutex2, mutex3;  // Counter semaphores
 
 int main() {
     
@@ -75,6 +75,8 @@ int main() {
     pthread_mutex_destroy (&mutex2);
     pthread_mutex_destroy (&mutex3);
 
+    cout << endl << "Done" << endl;
+
     return 0;
 }
 
@@ -95,9 +97,8 @@ void * Store_Char_Array(void * ptr)
     string filename;
     
     // Get input filename from keyboard
-    // cout << "Please enter filename: (e.g., randomNums.txt)\n";
-    // getline(cin, filename);
-    filename = "text.txt";
+    cout << "Please enter filename: (e.g., randomNums.txt)\n";
+    getline(cin, filename);
     
     cout << "Filename: " << filename << endl;
     
@@ -113,7 +114,10 @@ void * Store_Char_Array(void * ptr)
     
     int count_line = 0;
     string next_line;
+    
+
     while (getline(input_file, next_line)) {
+        counter++;
 
         // Lock itself
         pthread_mutex_lock(&mutex1);
@@ -122,14 +126,19 @@ void * Store_Char_Array(void * ptr)
         for(int i=0; i<next_line.length(); i++){
             temp_ptr[count_line][i] = next_line[i];
         }
+
         count_line++;
 
         // Unlock thread 2
         pthread_mutex_unlock(&mutex2);
-        counter++;
-        cout << "Counter: " << counter << endl;
+
+        cout << counter << endl;
         cout << "unlock 2" << endl;
+
+        cout << counter << endl;
     }
+    
+
 }
 
 
@@ -145,11 +154,11 @@ void * Process_One_Line(void * ptr)
     char **temp_ptr = (char **) ptr;
 
     int j=0;
-    for (int i=0; i < counter; i++){
+    for (int i=0; i <= counter; i++){
         // Lock itself
         pthread_mutex_lock(&mutex2);
+        // counter ++;
         cout << "lock 2" << endl;
-        cout << "Counter: " << counter << endl;
 
         // cout << i << endl;
         j=0;
@@ -185,7 +194,6 @@ void * Process_One_Line(void * ptr)
                     temp_ptr[i][temp] = '_';
                 }
             }
-            cout << "j :"<< j << endl;
             j++;
         }
         // cout  << temp_ptr[i][0] << endl;
@@ -218,9 +226,8 @@ void * Align_Display_Text(void * ptr)
     for(int i = 0; i <= counter; i++){
         // Lock itself
         pthread_mutex_lock (&mutex3);
-        cout << "lock 3" << endl;
-        cout << "Counter: " << counter << endl;
 
+        cout << "lock 3 test" << endl;
 
         int countnum = 0;
         while(temp_ptr[i][countnum] != 0){
@@ -258,12 +265,15 @@ void * Align_Display_Text(void * ptr)
         
         cout << endl;
 
+        counter--;
         // Unlock thread 1
         pthread_mutex_unlock (&mutex1);
 
-        cout << "Counter: " << counter << endl;
-        cout << "unlock 1" << endl;
-    }
+        cout << "unlock 1 test" << endl;
 
+        cout<< counter <<"count" << endl;
+        cout << i << "i" << endl;
+    }
+    // cout << "hahaha" << endl;
     outfile.close();
 }
