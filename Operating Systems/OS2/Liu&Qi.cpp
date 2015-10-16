@@ -2,11 +2,16 @@
  Jingxian Liu & Qi (Sara) Zhang
  Program Name: Project OS2
  
- Purpose: The purpose of this project is to use both threads and semaphonres to ...
+ Purpose: The purpose of this project is to use both threads and semaphonres 
+    to simulate the Latex text formating system.
  
  Input: 
     1) Input from keyboard: Filename
-    2) An input text file of any length, which contains normal words, punctuations, and control sequences '\c' (capitalize the first letter of the next word), '\C' (capitalize all of the letters of the next word), and '\u' (underline the next word (simulate this by _word_))
+    2) An input text file of any length, which contains normal words, 
+        punctuations, and control sequences '\c' (capitalize the first 
+        letter of the next word), '\C' (capitalize all of the letters 
+        of the next word), and '\u' (underline the next word (simulate 
+        this by _word_))
  
  Output:
     1) Output on console:
@@ -47,7 +52,8 @@ bool threadTwoDone = false;
 
 int main() {
     
-    // Initialize a two dimensional array with 200 lines, and 60 characters per line
+    // Initialize a two dimensional array with 200 lines,  
+    // and 60 characters per line
     char ** input_content = new char*[total_lines];
     for (int i = 0; i < total_lines; i++) {
         input_content[i] = new char[total_chars];
@@ -221,30 +227,34 @@ void * Align_Display_Text(void * ptr)
     while (!threadOneDone || !threadTwoDone) {
         // Lock itself
         pthread_mutex_lock (&mutex3);
-
+        //count the length of the row
         int countnum = 0;
         while(temp_ptr[i][countnum] != 0){
             countnum++;
         }
 
-        int index = 0;
+        // check if both thread one and two are done
+        // if it is, just print out the last line
         if (threadOneDone && threadTwoDone){
             for (int j =0; j< countnum; j++){
                 outfile << temp_ptr[i][j];
+                cout << temp_ptr[i][j];
             }
             outfile << endl;
-        
             cout << endl;
             outfile.close();
 
         }
+        //if not, put space into the last space
         else{
+            //get the space in the row
             for(int j = 0; j < countnum; j++){
                 if(temp_ptr[i][j] == ' '){
                     index = j;
                 }
             }
-
+            //insert in spaces where there are space to fill 50 slot
+            int index = 0;
             for(int j = 0; j < index; j++){
 
                 cout << temp_ptr[i][j];
@@ -252,13 +262,13 @@ void * Align_Display_Text(void * ptr)
             }
             
             for(int k = index; k < (outcolumn - countnum + index); k++){
-
+                
                 cout << ' ';
                 outfile << ' ';
             }
             
             for(int l = (outcolumn - countnum + index); l < outcolumn; l++){
-
+                //print out the rest of the row
                 cout << temp_ptr[i][l-(50 - countnum)];
                 outfile << temp_ptr[i][l-(outcolumn - countnum)];
             }
