@@ -16,4 +16,4 @@ Wheaton College
 ###[COMP398 Web Application Development](https://github.com/WheatonWHALE/comp398)
 - [Coursework Repo](https://github.com/akuisara/comp398)
 
-###COMP335 Principles of Programming Languages
+###COMP345 Operating System
