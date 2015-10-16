@@ -42,6 +42,9 @@ const int outcolumn=50;
 int counter = 0;
 pthread_mutex_t mutex1, mutex2, mutex3;  // Counter semaphores
 
+bool threadOneDone = false;
+bool threadTwoDone = false;
+
 int main() {
     
     // Initialize a two dimensional array with 200 lines, and 60 characters per line
@@ -117,11 +120,8 @@ void * Store_Char_Array(void * ptr)
     
 
     while (getline(input_file, next_line)) {
-        counter++;
         // Lock itself
-        // pthread_mutex_lock(&mutex2);
         pthread_mutex_lock(&mutex1);
-        cout << "-------------This is in thread 1----------------\n";
         cout << "lock 1" << endl;
        
         for(int i=0; i<next_line.length(); i++){
@@ -129,6 +129,7 @@ void * Store_Char_Array(void * ptr)
         }
 
         count_line++;
+        counter++;
 
         cout << "Counter: " << counter << endl;
         cout << "unlock 2\n\n" << endl;
@@ -137,7 +138,8 @@ void * Store_Char_Array(void * ptr)
         pthread_mutex_unlock(&mutex2);
 
     }
-        
+
+    threadOneDone = true;
 }
 
 
@@ -152,8 +154,8 @@ void * Process_One_Line(void * ptr)
     // Pass the pointer (pass by reference), and then cast void pointer to struct storeSublist
     char **temp_ptr = (char **) ptr;
 
-    int j=0;
-    for (int i=0; i <= counter+1; i++){
+    int j=0, i=0;
+    while (!threadOneDone) {
         // counter++;
         // Lock itself
         pthread_mutex_lock(&mutex2);
@@ -196,7 +198,7 @@ void * Process_One_Line(void * ptr)
             }
             j++;
         }
-        // cout  << temp_ptr[i][0] << endl;
+        i++;
 
         cout << "Counter: " << counter << endl;
         cout << "unlock 3\n\n" << endl;
@@ -205,6 +207,8 @@ void * Process_One_Line(void * ptr)
         pthread_mutex_unlock(&mutex3);
         
     }
+    threadTwoDone = true;
+
 }
 
 
@@ -224,41 +228,42 @@ void * Align_Display_Text(void * ptr)
     // Generate the output into an output file called "finalAnswer.txt"
     outfile.open("finalAnswer.txt");
 
-
-    for(int i = 0; i <= counter+1; i++){
+    int i = 0;
+    while (!threadOneDone || !threadTwoDone) {
+    // for(int i = 0; i <= counter+1; i++){
         // Lock itself
         pthread_mutex_lock (&mutex3);
-        cout << "Counter: " << counter << endl;
+        cout << "-------------This is in thread 3----------------\n";
         cout << "lock 3 test" << endl;
 
         int countnum = 0;
         while(temp_ptr[i][countnum] != 0){
             countnum++;
         }
-        cout << "countnum  " << countnum << endl;
+        // cout << "countnum  " << countnum << endl;
         int index = 0;
         for(int j = 0; j < countnum; j++){
             if(temp_ptr[i][j] == ' '){
                 index = j;
             }
         }
-        cout << "index  " << index << endl;
+        // cout << "index  " << index << endl;
 
         for(int j = 0; j < index; j++){
             // ptr2[i][j] = temp_ptr[i][j];
-            cout << temp_ptr[i][j];
+            // cout << temp_ptr[i][j];
             outfile << temp_ptr[i][j];  
         }
         
         for(int k = index; k < (outcolumn - countnum + index); k++){
         //  ptr2[i][k] = ' ';
-            cout << ' ';
+            // cout << ' ';
             outfile << ' ';
         }
         
         for(int l = (outcolumn - countnum + index); l < outcolumn; l++){
         //  ptr2[i][l] = temp_ptr[i][l-(50 - countnum)];
-            cout << temp_ptr[i][l-(50 - countnum)];
+            // cout << temp_ptr[i][l-(50 - countnum)];
             outfile << temp_ptr[i][l-(outcolumn - countnum)];
         }
 
@@ -274,8 +279,7 @@ void * Align_Display_Text(void * ptr)
 
         // Unlock thread 1
         pthread_mutex_unlock (&mutex1);
-
+        i++;
     }
-    // cout << "hahaha" << endl;
     outfile.close();
 }
