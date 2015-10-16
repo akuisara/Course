@@ -1,3 +1,13 @@
 Hi there,                                     BOB.
 What a big _nose_ you                        have!
+<<<<<<< HEAD
 It’s truly   SMELLERIFIC.
+=======
+It’s truly                          SMELLERIFIC.
+Hi there,                                     BOB.
+What a big _nose_ you                        have!
+It’s truly                          SMELLERIFIC.
+Hi there,                                     BOB.
+What a big _nose_ you                        have!
+It’s truly                          SMELLERIFIC.
+>>>>>>> e893074fc8cfd141288c7078142c4d887c66b036
