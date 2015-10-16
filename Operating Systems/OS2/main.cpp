@@ -129,13 +129,11 @@ void * Store_Char_Array(void * ptr)
 
         count_line++;
 
+        cout << counter << endl;
+        cout << "unlock 2\n\n" << endl;
         // Unlock thread 2
         pthread_mutex_unlock(&mutex2);
 
-        cout << counter << endl;
-        cout << "unlock 2" << endl;
-
-        cout << counter << endl;
     }
     
 
@@ -198,10 +196,12 @@ void * Process_One_Line(void * ptr)
         }
         // cout  << temp_ptr[i][0] << endl;
 
+        cout << "Counter: " << counter << endl;
+        cout << "unlock 3\n\n" << endl;
+
         // Unlock thread 3
         pthread_mutex_unlock(&mutex3);
-        cout << "Counter: " << counter << endl;
-        cout << "unlock 3" << endl;
+        
     }
 }
 
@@ -266,13 +266,13 @@ void * Align_Display_Text(void * ptr)
         cout << endl;
 
         counter--;
+
+        cout << "Counter: " << counter << endl;
+        cout << "unlock 1\n\n" << endl;
+
         // Unlock thread 1
         pthread_mutex_unlock (&mutex1);
 
-        cout << "unlock 1 test" << endl;
-
-        cout<< counter <<"count" << endl;
-        cout << i << "i" << endl;
     }
     // cout << "hahaha" << endl;
     outfile.close();
