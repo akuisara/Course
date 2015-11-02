@@ -48,7 +48,7 @@ bool jobLeftInCPU = false;  // A boolean to hold if there is a job in the CPU
 int totalJobLength = 0;     // Total job length (for all the completed jobs) 
 int totalWaitTime = 0;      // Total waiting time (for all the completed jobs) 
 int totalTurnaround = 0;    // Total turnaround time (for all the completed jobs) 
-float p = 0;                // Total probability of time waiting for IO (for all the completed jobs)
+double p = 0;                // Total probability of time waiting for IO (for all the completed jobs)
 
 const int PENALTYOUTCPU = 4;  // Constant value indicating the penalty of incomplete job being swapped out of the CPU
 
@@ -193,7 +193,7 @@ int cpu(int quantum, int &throughput, int &jobsInSystem, int systemTimeAt, int s
             totalJobLength += inCPU.jobLengthOriginal;
             totalWaitTime += systemTimeAt - inCPU.jobLengthOriginal;
             totalTurnaround += systemTimeAt - inCPU.jobStartTime + inCPU.ioLength;
-            p += (float) inCPU.ioLength / (inCPU.ioLength + inCPU.jobLengthOriginal);
+            p += (double) inCPU.ioLength / (inCPU.ioLength + inCPU.jobLengthOriginal);
 
             // sets a new variable to hold the random number to determine if it goes into IO
             int rrandomNumber;
@@ -293,7 +293,7 @@ int main()
 {
     ifstream file;  // variable to hold the input file
     string filename;    // variable to hold the filename
-    float simulationTime;   // Variable to hold the simulation time from the user input
+    double simulationTime;   // Variable to hold the simulation time from the user input
     int quantumSize;    // Variable to hold the quantum size from the user input
     int numProcesses;   // Variable to hold the number of processes (degree of multiprogramming) from the user input
     int lines;  // variable to hold the total number of lines (jobs) from the input file
@@ -363,15 +363,15 @@ int main()
         jobsInSystem = nbjobsstillinsystem();
         jobsSkipped = totaljobsSkipped();
 
-        // Declare a float to hold the CPU utilization, and calculate the value
-        float cpuUtilization = 1 - pow((p/throughput), numProcesses);
+        // Declare a double to hold the CPU utilization, and calculate the value
+        double cpuUtilization = 1 - pow(((double) p/throughput), numProcesses);
 
         // Output all the values
         cout << "\nThroughput (number of jobs completed during the simulation): " << throughput << endl
              << "Number of jobs still in system: " << jobsInSystem << endl
              << "Number of jobs skipped: " << jobsSkipped << endl
-             << "Average job length excluding I/O time: " << totalJobLength/throughput << " (ms)" << endl
-             << "Average turnaround time: " << totalTurnaround / throughput << " (ms)" << endl
+             << "Average job length excluding I/O time: " << (double) totalJobLength/throughput << " (ms)" << endl
+             << "Average turnaround time: " << (double) totalTurnaround / throughput << " (ms)" << endl
              << "Average waiting time per process: " << totalWaitTime << " (ms)" << endl;
         printf("CPU utilization (percentage of time CPU is busy): %5.2f%c \n", cpuUtilization * 100, '%');
         cout << endl;
