@@ -17,18 +17,25 @@
                 
                 <div id="content">
                     <div class="content-wrapper" id="content-leaning-tower">
-                        <!--<img src="images/LeaningTower.jpg" />-->
                         <canvas id="myCanvas" width = "600" height="400"></canvas>
+                        
+                        <form>
+                            <input type=button value="Start animation" onclick="animate()">
+                            <input type=button value="Clear animation" onclick="clearAnimate()">
+                        </form>
                     </div>
+                    
                     <div class="content-wrapper" id="content-sine-illusion">
-                        <img src="images/SineIllusion.jpg" />
+                        <canvas id="myCanvas" width = "600" height="400"></canvas>
+                        <form>
+                            <input type=button value="Start animation" onclick="animate()">
+                            <input type=button value="Clear animation" onclick="clearAnimate()">
+                        </form>
                     </div>
                 </div>
                 
                 <!-- set up a button -->
-                <form>
-                    <input type=button value="Start animation" onclick="animate()">
-                </form>
+                
             </div>
         </div>
         
@@ -111,6 +118,11 @@
             context.font="26px Helvetica";
             context.fillStyle = "rgba(0, 0, 0, 1)";
             context.fillText ("Leaning Tower", 350, 40); 
+        }
+        
+        function clearAnimate() {
+            x = 410;
+            clearStuff();
         }
     </script>
 
