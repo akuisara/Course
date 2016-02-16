@@ -1,0 +1,25 @@
+body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.wrapper{
+    width: 100%;
+}
+
+#centered{
+    width: 50%;
+    margin:25% auto;
+    border: 1px solid purple;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    background: #8A2BE2;
+}
+
