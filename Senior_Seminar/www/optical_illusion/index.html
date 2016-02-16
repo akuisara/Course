@@ -8,8 +8,113 @@
     <body>
         <div class="wrapper">
             <div id="centered">
-                <h1><a href="COMP401/">Senior Seminar Assignments</a></h1>
+                <h1><a href="COMP401/">Optical Illusions</a></h1>
+                
+                <nav>
+                    <div id="leaning-tower">Leaning Tower</div>
+                    <div id="sine-illusion">Sine Illusion</div>
+                </nav>
+                
+                <div id="content">
+                    <div class="content-wrapper" id="content-leaning-tower">
+                        <!--<img src="images/LeaningTower.jpg" />-->
+                        <canvas id="myCanvas" width = "600" height="400"></canvas>
+                    </div>
+                    <div class="content-wrapper" id="content-sine-illusion">
+                        <img src="images/SineIllusion.jpg" />
+                    </div>
+                </div>
+                
+                <!-- set up a button -->
+                <form>
+                    <input type=button value="Start animation" onclick="animate()">
+                </form>
             </div>
         </div>
+        
+        <script>
+        // load the image
+        var img = new Image();
+        img.src = "images/LeaningTower.jpg";
+        
+        var canvas = document.getElementById ("myCanvas");
+        var context = canvas.getContext ("2d");
+        var x = 410;    // x position
+        var myTimer;    // used to stop animation
+
+        // draw the initial illusion when page is loaded
+        window.onload = function() {
+            //context.drawImage (img, 10, 10);
+            //context.fillRect (x, 150, 150, 60);
+            //drawStuff();
+            
+            // add some text
+            //context.font="26px Helvetica";
+            //context.fillText ("Shadow Illusion", 350, 40);
+            clearStuff();
+        }
+        
+        // do the animation when button is pressed
+        function animate() {
+            // setInterval (function_to_animate, delay between frames)
+            myTimer = setInterval (drawStuff, 100);
+        }
+        
+        function drawStuff() {
+            clearStuff();
+            //context.globalAlpha=0.2;
+            // do in clockwise order
+            context.fillStyle = "rgba(0, 256, 0, 0.5)";
+            context.beginPath();
+            context.moveTo (x, 86);
+            context.lineTo (x+247, 86);
+            context.lineTo (x+144, 336);
+            context.lineTo (x-103, 336);                
+            context.closePath();
+            context.fill();
+            
+            context.fillStyle = "rgba(0, 0, 256, 0.5)";
+            context.beginPath();
+            context.moveTo (x+258, 86);
+            context.lineTo (x+258, 336);
+            context.lineTo (x+155, 336);                
+            context.closePath();
+            context.fill();
+            
+            context.fillStyle = "rgba(0, 0, 256, 1)";
+            context.beginPath();
+            context.moveTo (x+143, 86);
+            context.lineTo (x+145, 86);
+            context.lineTo (x+145, 336);                
+            context.lineTo (x+143, 336);                
+            context.closePath();
+            context.fill();
+            
+            context.fillStyle = "rgba(0, 0, 256, 1)";
+            context.beginPath();
+            context.moveTo (x-1, 86);
+            context.lineTo (x+1, 86);
+            context.lineTo (x+1, 336);                
+            context.lineTo (x-1, 336);                
+            context.closePath();
+            context.fill();
+            
+            x = x - 10;
+            if (x < 141) {
+                clearInterval (myTimer);
+            }
+        }
+        
+        function clearStuff() {
+            context.clearRect (0, 0, 600, 400);
+            context.drawImage (img, 40, 50);
+            context.font="26px Helvetica";
+            context.fillStyle = "rgba(0, 0, 0, 1)";
+            context.fillText ("Leaning Tower", 350, 40); 
+        }
+    </script>
+
+
+
     </body>
 </html>
