@@ -23,6 +23,14 @@
                             <input type=button value="Start animation" onclick="animate1()">
                             <input type=button value="Clear animation" onclick="clearAnimate()">
                         </form>
+                        
+                        <div class="explanation">
+                            <b>Illusion: </b>Two towers do not seem to be parallel, as the one on the right side slightly leans to the right.
+                            <br>
+                            <b>Animation Explanation: </b>The green parallelogram along with a blue right triangle show that two leaning towers are actually parallel to each other.
+                            <br>
+                            <a href="http://www.michaelbach.de/ot/sze-leaningTowers/index.html"class="source"><b>Read Source</b></a>
+                        </div>
                     </div>
                     
                     <div class="content-wrapper" id="content-sine-illusion">
@@ -31,11 +39,15 @@
                             <input type=button value="Start animation" onclick="animate2()">
                             <input type=button value="Clear animation" onclick="clearAnimate()">
                         </form>
+                        <div class="explanation">
+                            <b>Illusion: </b>Not all the vertical bars seem like they have the same length.
+                            <br>
+                            <b>Animation Explanation: </b>Draw eight blue lines right next to eight vertical bars chosen in the graph such that blue lines have the same lengths as the chosen bars. Moving blue lines to the vertical center shows that all the bars have the same length.
+                            <br>
+                            <a href="http://www.michaelbach.de/ot/sze-sineIllusion/index.html"class="source"><b>Read Source</b></a>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- set up a button -->
-                
             </div>
         </div>
         
@@ -53,8 +65,8 @@
         var canvas2 = document.getElementById ("canvas2");
         var context1 = canvas1.getContext ("2d");
         var context2 = canvas2.getContext ("2d");
-        var x = 460;    // x position
-        var y1 = 20;
+        var x = 460;    // x position for canvas1
+        var y1 = 20;    // y positions for canvas2
         var y2 = 220;
         var y3 = 420;
         var myTimer;    // used to stop animation
@@ -64,13 +76,6 @@
 
         // draw the initial illusion when page is loaded
         window.onload = function() {
-            //context.drawImage (img, 10, 10);
-            //context.fillRect (x, 150, 150, 60);
-            //drawStuff();
-            
-            // add some text
-            //context.font="26px Helvetica";
-            //context.fillText ("Shadow Illusion", 350, 40);
             clearStuff();
         }
         
@@ -246,7 +251,6 @@
         
         document.write(document.lastModified);
     </script>
-
 
 
     </body>
