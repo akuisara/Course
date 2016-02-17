@@ -25,8 +25,9 @@ nav div {
 
 canvas, img{
     height: 100%;
-    width: auto;
+    width: 100%;
     border: 1px solid black;
+    margin: 0 auto;
 }
 
 img{
@@ -57,6 +58,7 @@ form{
     text-transform: none;
     text-align: justify;
     margin: -5% auto;
+    overflow-y: auto;
 }
 
 .source{

@@ -10,16 +10,32 @@ a{
 }
 
 .wrapper{
-    width: 100%;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background-color: #eee;
+    margin:5% 10%;
 }
 
-#centered{
-    width: 50%;
-    margin:25% auto;
-    border: 1px solid purple;
-    text-align: center;
+.div-rec{
+    width: 20%;
+    background-color: #ddd;
+    margin: 5% 5%;
+}
+
+#optical-illusion{
+    height: 30%;
     text-transform: uppercase;
     color: #fff;
-    background: #8A2BE2;
+    background: #9370DB;
+    margin-left: 20%;
+}
+
+#name{
+    height: 25%;
+    text-transform: uppercase;
+    color: #555;
+    text-align: right;
+    padding: 45% 5% 0 0;
 }
 
