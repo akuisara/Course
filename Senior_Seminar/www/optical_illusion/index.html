@@ -53,8 +53,7 @@
         var canvas2 = document.getElementById ("canvas2");
         var context1 = canvas1.getContext ("2d");
         var context2 = canvas2.getContext ("2d");
-        var x = 410;    // x position
-        var x2 = 550;    // x position
+        var x = 460;    // x position
         var y1 = 20;
         var y2 = 220;
         var y3 = 420;
@@ -87,41 +86,41 @@
             // do in clockwise order
             context1.fillStyle = "rgba(0, 256, 0, 0.5)";
             context1.beginPath();
-            context1.moveTo (x, 86);
-            context1.lineTo (x+247, 86);
-            context1.lineTo (x+144, 336);
-            context1.lineTo (x-103, 336);                
+            context1.moveTo (x, 136);
+            context1.lineTo (x+247, 136);
+            context1.lineTo (x+144, 386);
+            context1.lineTo (x-103, 386);                
             context1.closePath();
             context1.fill();
             
             context1.fillStyle = "rgba(0, 0, 256, 0.5)";
             context1.beginPath();
-            context1.moveTo (x+258, 86);
-            context1.lineTo (x+258, 336);
-            context1.lineTo (x+155, 336);                
+            context1.moveTo (x+258, 136);
+            context1.lineTo (x+258, 386);
+            context1.lineTo (x+155, 386);                
             context1.closePath();
             context1.fill();
             
             context1.fillStyle = "rgba(0, 0, 256, 1)";
             context1.beginPath();
-            context1.moveTo (x+143, 86);
-            context1.lineTo (x+145, 86);
-            context1.lineTo (x+145, 336);                
-            context1.lineTo (x+143, 336);                
+            context1.moveTo (x+143, 136);
+            context1.lineTo (x+145, 136);
+            context1.lineTo (x+145, 386);                
+            context1.lineTo (x+143, 386);                
             context1.closePath();
             context1.fill();
             
             context1.fillStyle = "rgba(0, 0, 256, 1)";
             context1.beginPath();
-            context1.moveTo (x-1, 86);
-            context1.lineTo (x+1, 86);
-            context1.lineTo (x+1, 336);                
-            context1.lineTo (x-1, 336);                
+            context1.moveTo (x-1, 136);
+            context1.lineTo (x+1, 136);
+            context1.lineTo (x+1, 386);                
+            context1.lineTo (x-1, 386);                
             context1.closePath();
             context1.fill();
             
             x = x - 10;
-            if (x < 141) {
+            if (x < 191) {
                 clearInterval (myTimer);
             }
         }
@@ -129,7 +128,7 @@
         // do the animation when button is pressed
         function animate2() {
             // setInterval (function_to_animate, delay between frames)
-            myTimer = setInterval (drawStuff2, 100);
+            myTimer = setInterval (drawStuff2, 175);
         }
         
         function drawStuff2() {
@@ -137,79 +136,82 @@
             
             context2.fillStyle = "rgba(0, 0, 256, 0.5)";
             context2.beginPath();
-            context2.moveTo (x2+72, y2);
-            context2.lineTo (x2+75, y2);
-            context2.lineTo (x2+75, y2+60);                
-            context2.lineTo (x2+72, y2+60);                
+            context2.moveTo (622, y2);
+            context2.lineTo (619, y2);
+            context2.lineTo (619, y2+60);                
+            context2.lineTo (622, y2+60);                
             context2.closePath();
             context2.fill();
             
             context2.beginPath();
-            context2.moveTo (x2, y1);
-            context2.lineTo (x2+3, y1);
-            context2.lineTo (x2+3, y1+60);                
-            context2.lineTo (x2, y1+60);                
+            context2.moveTo (550, y1);
+            context2.lineTo (553, y1);
+            context2.lineTo (553, y1+60);                
+            context2.lineTo (550, y1+60);                
             context2.closePath();
             context2.fill();
             
             context2.beginPath();
-            context2.moveTo (x2-72, y2);
-            context2.lineTo (x2-69, y2);
-            context2.lineTo (x2-69, y2+60);                
-            context2.lineTo (x2-72, y2+60);                
+            context2.moveTo (478, y2);
+            context2.lineTo (475, y2);
+            context2.lineTo (475, y2+60);                
+            context2.lineTo (478, y2+60);                
             context2.closePath();
             context2.fill();
             
             context2.beginPath();
-            context2.moveTo (x2-144, y3);
-            context2.lineTo (x2-141, y3);
-            context2.lineTo (x2-141, y3+60);                
-            context2.lineTo (x2-144, y3+60);                
+            context2.moveTo (406, y3);
+            context2.lineTo (403, y3);
+            context2.lineTo (403, y3+60);                
+            context2.lineTo (406, y3+60);                
             context2.closePath();
             context2.fill();
             
             context2.beginPath();
-            context2.moveTo (x2-216, y2);
-            context2.lineTo (x2-213, y2);
-            context2.lineTo (x2-213, y2+60);                
-            context2.lineTo (x2-216, y2+60);                
+            context2.moveTo (334, y2);
+            context2.lineTo (331, y2);
+            context2.lineTo (331, y2+60);                
+            context2.lineTo (334, y2+60);                
             context2.closePath();
             context2.fill();
             
             context2.beginPath();
-            context2.moveTo (x2-288, y1);
-            context2.lineTo (x2-285, y1);
-            context2.lineTo (x2-285, y1+60);                
-            context2.lineTo (x2-288, y1+60);                
+            context2.moveTo (262, y1);
+            context2.lineTo (259, y1);
+            context2.lineTo (259, y1+60);                
+            context2.lineTo (262, y1+60);                
             context2.closePath();
             context2.fill();
             
             context2.beginPath();
-            context2.moveTo (x2-360, y2);
-            context2.lineTo (x2-357, y2);
-            context2.lineTo (x2-357, y2+60);                
-            context2.lineTo (x2-360, y2+60);                
+            context2.moveTo (190, y2);
+            context2.lineTo (187, y2);
+            context2.lineTo (187, y2+60);                
+            context2.lineTo (190, y2+60);                
             context2.closePath();
             context2.fill();
             
             context2.beginPath();
-            context2.moveTo (x2-432, y3);
-            context2.lineTo (x2-429, y3);
-            context2.lineTo (x2-429, y3+60);                
-            context2.lineTo (x2-432, y3+60);                
+            context2.moveTo (118, y3);
+            context2.lineTo (115, y3);
+            context2.lineTo (115, y3+60);                
+            context2.lineTo (118, y3+60);                
             context2.closePath();
             context2.fill();
             
             y1 += 10;
             y3 -= 10;
             if (y1 > y2 && y3 < y2) {
+                context2.strokeStyle = "rgba(256, 0, 0, 1)";
+                context2.strokeRect(0, y2, 700, 60);
                 clearInterval (myTimer);
             }
         }
         
         function clearStuff() {
             context1.clearRect (0, 0, 700, 500);
-            context1.drawImage (img1, 40, 50);
+            //context1.drawImage (img1, 40, 50);
+            context1.drawImage (img1, 90, 100);
             context1.font="26px Helvetica";
             context1.fillStyle = "rgba(0, 0, 0, 1)";
             context1.fillText ("Leaning Tower", 350, 40);
@@ -222,16 +224,22 @@
         }
         
         function clearAnimate() {
-            x = 410;
+            x = 460;
+            y1 = 20;
+            y2 = 220;
+            y3 = 420;
+            clearInterval (myTimer);
             clearStuff();
         }
         
         function getLeaningTower() {
+            clearAnimate();
             leaningTower.style.display = "block";
             sineIllusion.style.display = "none";
         }
         
         function getSineIllusion() {
+            clearAnimate();
             sineIllusion.style.display = "block";
             leaningTower.style.display = "none";
         }
