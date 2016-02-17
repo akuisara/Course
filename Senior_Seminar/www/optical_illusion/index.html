@@ -11,24 +11,24 @@
                 <h1><a href="COMP401/">Optical Illusions</a></h1>
                 
                 <nav>
-                    <div id="leaning-tower">Leaning Tower</div>
-                    <div id="sine-illusion">Sine Illusion</div>
+                    <input id="leaning-tower" type=button value="Leaning Tower" onclick="getLeaningTower()">
+                    <input id="sine-illusion" type=button value="Sine Illusion" onclick="getSineIllusion()">
                 </nav>
                 
                 <div id="content">
                     <div class="content-wrapper" id="content-leaning-tower">
-                        <canvas id="myCanvas" width = "600" height="400"></canvas>
+                        <canvas id="canvas1" width = "700" height="500"></canvas>
                         
                         <form>
-                            <input type=button value="Start animation" onclick="animate()">
+                            <input type=button value="Start animation" onclick="animate1()">
                             <input type=button value="Clear animation" onclick="clearAnimate()">
                         </form>
                     </div>
                     
                     <div class="content-wrapper" id="content-sine-illusion">
-                        <canvas id="myCanvas" width = "600" height="400"></canvas>
+                        <canvas id="canvas2" width = "700" height="500"></canvas>
                         <form>
-                            <input type=button value="Start animation" onclick="animate()">
+                            <input type=button value="Start animation" onclick="animate2()">
                             <input type=button value="Clear animation" onclick="clearAnimate()">
                         </form>
                     </div>
@@ -39,15 +39,29 @@
             </div>
         </div>
         
+        Last updated
+        
         <script>
         // load the image
-        var img = new Image();
-        img.src = "images/LeaningTower.jpg";
+        var img1 = new Image();
+        img1.src = "images/LeaningTower.jpg";
         
-        var canvas = document.getElementById ("myCanvas");
-        var context = canvas.getContext ("2d");
+        var img2 = new Image();
+        img2.src = "images/SineIllusion.jpg";
+        
+        var canvas1 = document.getElementById ("canvas1");
+        var canvas2 = document.getElementById ("canvas2");
+        var context1 = canvas1.getContext ("2d");
+        var context2 = canvas2.getContext ("2d");
         var x = 410;    // x position
+        var x2 = 550;    // x position
+        var y1 = 20;
+        var y2 = 220;
+        var y3 = 420;
         var myTimer;    // used to stop animation
+        
+        var leaningTower = document.getElementById("content-leaning-tower");
+        var sineIllusion = document.getElementById("content-sine-illusion");
 
         // draw the initial illusion when page is loaded
         window.onload = function() {
@@ -62,49 +76,49 @@
         }
         
         // do the animation when button is pressed
-        function animate() {
+        function animate1() {
             // setInterval (function_to_animate, delay between frames)
-            myTimer = setInterval (drawStuff, 100);
+            myTimer = setInterval (drawStuff1, 100);
         }
         
-        function drawStuff() {
+        function drawStuff1() {
             clearStuff();
             //context.globalAlpha=0.2;
             // do in clockwise order
-            context.fillStyle = "rgba(0, 256, 0, 0.5)";
-            context.beginPath();
-            context.moveTo (x, 86);
-            context.lineTo (x+247, 86);
-            context.lineTo (x+144, 336);
-            context.lineTo (x-103, 336);                
-            context.closePath();
-            context.fill();
+            context1.fillStyle = "rgba(0, 256, 0, 0.5)";
+            context1.beginPath();
+            context1.moveTo (x, 86);
+            context1.lineTo (x+247, 86);
+            context1.lineTo (x+144, 336);
+            context1.lineTo (x-103, 336);                
+            context1.closePath();
+            context1.fill();
             
-            context.fillStyle = "rgba(0, 0, 256, 0.5)";
-            context.beginPath();
-            context.moveTo (x+258, 86);
-            context.lineTo (x+258, 336);
-            context.lineTo (x+155, 336);                
-            context.closePath();
-            context.fill();
+            context1.fillStyle = "rgba(0, 0, 256, 0.5)";
+            context1.beginPath();
+            context1.moveTo (x+258, 86);
+            context1.lineTo (x+258, 336);
+            context1.lineTo (x+155, 336);                
+            context1.closePath();
+            context1.fill();
             
-            context.fillStyle = "rgba(0, 0, 256, 1)";
-            context.beginPath();
-            context.moveTo (x+143, 86);
-            context.lineTo (x+145, 86);
-            context.lineTo (x+145, 336);                
-            context.lineTo (x+143, 336);                
-            context.closePath();
-            context.fill();
+            context1.fillStyle = "rgba(0, 0, 256, 1)";
+            context1.beginPath();
+            context1.moveTo (x+143, 86);
+            context1.lineTo (x+145, 86);
+            context1.lineTo (x+145, 336);                
+            context1.lineTo (x+143, 336);                
+            context1.closePath();
+            context1.fill();
             
-            context.fillStyle = "rgba(0, 0, 256, 1)";
-            context.beginPath();
-            context.moveTo (x-1, 86);
-            context.lineTo (x+1, 86);
-            context.lineTo (x+1, 336);                
-            context.lineTo (x-1, 336);                
-            context.closePath();
-            context.fill();
+            context1.fillStyle = "rgba(0, 0, 256, 1)";
+            context1.beginPath();
+            context1.moveTo (x-1, 86);
+            context1.lineTo (x+1, 86);
+            context1.lineTo (x+1, 336);                
+            context1.lineTo (x-1, 336);                
+            context1.closePath();
+            context1.fill();
             
             x = x - 10;
             if (x < 141) {
@@ -112,18 +126,117 @@
             }
         }
         
+        // do the animation when button is pressed
+        function animate2() {
+            // setInterval (function_to_animate, delay between frames)
+            myTimer = setInterval (drawStuff2, 100);
+        }
+        
+        function drawStuff2() {
+            clearStuff();
+            
+            context2.fillStyle = "rgba(0, 0, 256, 0.5)";
+            context2.beginPath();
+            context2.moveTo (x2+72, y2);
+            context2.lineTo (x2+75, y2);
+            context2.lineTo (x2+75, y2+60);                
+            context2.lineTo (x2+72, y2+60);                
+            context2.closePath();
+            context2.fill();
+            
+            context2.beginPath();
+            context2.moveTo (x2, y1);
+            context2.lineTo (x2+3, y1);
+            context2.lineTo (x2+3, y1+60);                
+            context2.lineTo (x2, y1+60);                
+            context2.closePath();
+            context2.fill();
+            
+            context2.beginPath();
+            context2.moveTo (x2-72, y2);
+            context2.lineTo (x2-69, y2);
+            context2.lineTo (x2-69, y2+60);                
+            context2.lineTo (x2-72, y2+60);                
+            context2.closePath();
+            context2.fill();
+            
+            context2.beginPath();
+            context2.moveTo (x2-144, y3);
+            context2.lineTo (x2-141, y3);
+            context2.lineTo (x2-141, y3+60);                
+            context2.lineTo (x2-144, y3+60);                
+            context2.closePath();
+            context2.fill();
+            
+            context2.beginPath();
+            context2.moveTo (x2-216, y2);
+            context2.lineTo (x2-213, y2);
+            context2.lineTo (x2-213, y2+60);                
+            context2.lineTo (x2-216, y2+60);                
+            context2.closePath();
+            context2.fill();
+            
+            context2.beginPath();
+            context2.moveTo (x2-288, y1);
+            context2.lineTo (x2-285, y1);
+            context2.lineTo (x2-285, y1+60);                
+            context2.lineTo (x2-288, y1+60);                
+            context2.closePath();
+            context2.fill();
+            
+            context2.beginPath();
+            context2.moveTo (x2-360, y2);
+            context2.lineTo (x2-357, y2);
+            context2.lineTo (x2-357, y2+60);                
+            context2.lineTo (x2-360, y2+60);                
+            context2.closePath();
+            context2.fill();
+            
+            context2.beginPath();
+            context2.moveTo (x2-432, y3);
+            context2.lineTo (x2-429, y3);
+            context2.lineTo (x2-429, y3+60);                
+            context2.lineTo (x2-432, y3+60);                
+            context2.closePath();
+            context2.fill();
+            
+            y1 += 10;
+            y3 -= 10;
+            if (y1 > y2 && y3 < y2) {
+                clearInterval (myTimer);
+            }
+        }
+        
         function clearStuff() {
-            context.clearRect (0, 0, 600, 400);
-            context.drawImage (img, 40, 50);
-            context.font="26px Helvetica";
-            context.fillStyle = "rgba(0, 0, 0, 1)";
-            context.fillText ("Leaning Tower", 350, 40); 
+            context1.clearRect (0, 0, 700, 500);
+            context1.drawImage (img1, 40, 50);
+            context1.font="26px Helvetica";
+            context1.fillStyle = "rgba(0, 0, 0, 1)";
+            context1.fillText ("Leaning Tower", 350, 40);
+            
+            context2.clearRect (0, 0, 700, 500);
+            context2.drawImage (img2, 30, 10);
+            context2.font="26px Helvetica";
+            context2.fillStyle = "rgba(0, 0, 0, 1)";
+            context2.fillText ("Sine Illusion", 350, 40); 
         }
         
         function clearAnimate() {
             x = 410;
             clearStuff();
         }
+        
+        function getLeaningTower() {
+            leaningTower.style.display = "block";
+            sineIllusion.style.display = "none";
+        }
+        
+        function getSineIllusion() {
+            sineIllusion.style.display = "block";
+            leaningTower.style.display = "none";
+        }
+        
+        document.write(document.lastModified);
     </script>
 
 
