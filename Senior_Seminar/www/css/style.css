@@ -11,10 +11,11 @@ a{
 
 .wrapper{
     position: absolute;
-    width: 80%;
-    height: 80%;
+    width: 75%;
+    height: 75%;
+    margin:5% 12.5%;
     background-color: #eee;
-    margin:5% 10%;
+    border: 1px dotted #ccc;
 }
 
 .div-rec{

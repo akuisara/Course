@@ -65,11 +65,16 @@ form{
     text-decoration: underline;
 }
 
+#home{
+    position: absolute;
+    margin: 7% 15%;
+}
+
 #centered{
     width: 75%;
     height: 75%;
     margin:5% auto;
-    border: 1px solid purple;
+    border: 1px dotted purple;
     text-align: center;
     text-transform: uppercase;
     color: #fff;
