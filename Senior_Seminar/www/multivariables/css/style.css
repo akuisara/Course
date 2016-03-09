@@ -23,10 +23,14 @@ nav div {
     border: 1px dotted #8A2BE2;
 }
 
-#viz, img{
-    width: 100%;
-    height: 100%;
+svg {
     border: 1px solid black;
+    
+}
+
+#viz, img{
+    min-width: 100%;
+    min-height: 100%;
 }
 
 img{

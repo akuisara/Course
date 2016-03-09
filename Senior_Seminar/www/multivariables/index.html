@@ -134,8 +134,6 @@
     d3.xml("data/sportsData.xml", function(data) {
         // array of the players, used for the legend
         var xml = $('baseball', data);
-        // console.log(xml);
-
 
         xml.find("player").each(function() {
             temp = {};
@@ -152,43 +150,30 @@
 
     function getGraph(){
         var options = getOptions();
-        console.log(options);
-        console.log(players);
-
-        // sort data alphabetically by region, so that the colors match with legend
-        players.sort(function(a, b) { return d3.ascending(options.colors, options.colors); })
-
-        // var x0 = Math.max(-d3.min(players, function(d) { return d.optionX; }), d3.max(players, function(d) { return d.optionX; }));
-
-        // var x = d3.scale.linear()
-        //     .range([0, width])
-        //     .domain(xextent).nice();
-
-        // var xAxis = d3.svg.axis()
-        //     .scale(x)
-        //     .orient("bottom");
 
         var xDomain = d3.extent(players, function(d) { 
             return d[options.optionX]; 
         });
-        x.domain([xDomain[0] * 0.95, xDomain[1] * 1.05]).nice();
+        x.domain([xDomain[0] * 0.95, xDomain[1] * 1.05])
+        .range([0, w])
+        .nice();
 
         var yDomain = d3.extent(players, function(d) { 
             return d[options.optionY]; 
         });
-        y.domain([yDomain[0] * 0.95, yDomain[1] * 1.05]).nice();
+        y.domain([yDomain[0] * 0.95, yDomain[1] * 1.05])
+        .nice();
 
         var rDomain = d3.extent(players, function(d) { 
             return d[options.optionR]; 
         });
         var r = d3.scale.linear()
             .range([5, 20])
-            .domain([rDomain[0] * 0.95, rDomain[1] * 1.05]).nice();
-        console.log(rDomain);
-        console.log(r);
+            .domain(rDomain)
+            .nice();
 
         // style the circles, set their locations based on data
-        var circles = groups.selectAll("circle")
+        var circles = groups.selectAll("circle.baseball")
             .data(players)
             .enter().append("circle")
             .attr("class", "circles")
@@ -202,137 +187,166 @@
             })
             .style("fill", function(d) { return color(d[options.optionC]); });
 
-        // // what to do when we mouse over a bubble
-        // var mouseOn = function() { 
-        //     var circle = d3.select(this);
+        // what to do when we mouse over a bubble
+        var mouseOn = function() { 
+            var circle = d3.select(this);
 
-        //     // transition to increase size/opacity of bubble
-        //     circle.transition()
-        //         .duration(800).style("opacity", 1)
-        //         .attr("r", 16).ease("elastic");
+            // transition to increase size/opacity of bubble
+            circle.transition()
+                .duration(800).style("opacity", 1)
+                .attr("r", 16).ease("elastic");
 
-        //     // append lines to bubbles that will be used to show the precise data points.
-        //     // translate their location based on margins
-        //     svg.append("g")
-        //         .attr("class", "guide")
-        //         .append("line")
-        //         .attr("x1", circle.attr("cx"))
-        //         .attr("x2", circle.attr("cx"))
-        //         .attr("y1", +circle.attr("cy") + 26)
-        //         .attr("y2", h - margin.t - margin.b)
-        //         .attr("transform", "translate(40,20)")
-        //         .style("stroke", circle.style("fill"))
-        //         .transition().delay(200).duration(400)
-        //         .styleTween("opacity", function() { return d3.interpolate(0, .5); })
+            // append lines to bubbles that will be used to show the precise data points.
+            // translate their location based on margins
+            svg.append("g")
+                .attr("class", "guide")
+                .append("line")
+                .attr("x1", circle.attr("cx"))
+                .attr("x2", circle.attr("cx"))
+                .attr("y1", +circle.attr("cy") + 26)
+                .attr("y2", h - margin.t - margin.b)
+                .attr("transform", "translate(40,20)")
+                .style("stroke", circle.style("fill"))
+                .transition().delay(200).duration(400)
+                .styleTween("opacity", function() { return d3.interpolate(0, .5); })
 
-        //     svg.append("g")
-        //         .attr("class", "guide")
-        //         .append("line")
-        //         .attr("x1", +circle.attr("cx") - 16)
-        //         .attr("x2", 0)
-        //         .attr("y1", circle.attr("cy"))
-        //         .attr("y2", circle.attr("cy"))
-        //         .attr("transform", "translate(40,30)")
-        //         .style("stroke", circle.style("fill"))
-        //         .transition().delay(200).duration(400)
-        //         .styleTween("opacity", function() { return d3.interpolate(0, .5); });
+            svg.append("g")
+                .attr("class", "guide")
+                .append("line")
+                .attr("x1", +circle.attr("cx") - 16)
+                .attr("x2", 0)
+                .attr("y1", circle.attr("cy"))
+                .attr("y2", circle.attr("cy"))
+                .attr("transform", "translate(40,30)")
+                .style("stroke", circle.style("fill"))
+                .transition().delay(200).duration(400)
+                .styleTween("opacity", function() { return d3.interpolate(0, .5); });
 
-        //     // function to move mouseover item to front of SVG stage, in case
-        //     // another bubble overlaps it
-        //     d3.selection.prototype.moveToFront = function() { 
-        //         return this.each(function() { 
-        //             this.parentNode.appendChild(this); 
-        //         }); 
-        //     };
+            // function to move mouseover item to front of SVG stage, in case
+            // another bubble overlaps it
+            d3.selection.prototype.moveToFront = function() { 
+                return this.each(function() { 
+                    this.parentNode.appendChild(this); 
+                }); 
+            };
 
-        //     // skip this functionality for IE9, which doesn't like it
-        //     if (!$.browser.msie) {
-        //         circle.moveToFront();   
-        //     }
-        // };
-
-
-        // // what happens when we leave a bubble?
-        // var mouseOff = function() {
-        //     var circle = d3.select(this);
-
-        //     // go back to original size and opacity
-        //     circle.transition()
-        //         .duration(800).style("opacity", .5)
-        //         .attr("r", 8).ease("elastic");
-
-        //     // fade out guide lines, then remove them
-        //     d3.selectAll(".guide").transition().duration(100)
-        //         .styleTween("opacity", function() { return d3.interpolate(.5, 0); })
-        //         .remove()
-        // };
-
-        // // run the mouseon/out functions
-        // circles.on("mouseover", mouseOn);
-        // circles.on("mouseout", mouseOff);
-
-        // // tooltips (using jQuery plugin tipsy)
-        // circles.append("title").text(function(d) { return d.country; })
-
-        // $(".circles").tipsy({ gravity: 's', });
-
-        // // the legend color guide
-        // var legend = svg.selectAll("rect")
-        //     .data(regions)
-        //     .enter().append("rect")
-        //     .attr({
-        //         x: function(d, i) { return (40 + i*80); },
-        //         y: h,
-        //         width: 25,
-        //         height: 12
-        //     })
-        //     .style("fill", function(d) { return color(d); });
+            // skip this functionality for IE9, which doesn't like it
+            if (!$.browser.msie) {
+                circle.moveToFront();   
+            }
+        };
 
 
-        // // legend labels    
-        // svg.selectAll("text")
-        //     .data(regions)
-        //     .enter().append("text")
-        //     .attr({
-        //         x: function(d, i) { return (40 + i*80); },
-        //         y: h + 24,
-        //     })
-        //     .text(function(d) { return d; });
+        // what happens when we leave a bubble?
+        var mouseOff = function() {
+            var circle = d3.select(this);
 
-        // // draw axes and axis labels
-        // svg.append("g")
-        //     .attr("class", "x axis")
-        //     .attr("transform", "translate(" + margin.l + "," + (h - 60 + margin.t) + ")")
-        //     .call(xAxis);
+            // go back to original size and opacity
+            circle.transition()
+                .duration(800).style("opacity", .5)
+                .attr("r", function(d) { return r(+d[options.optionR]); }).ease("elastic");
 
-        // svg.append("g")
-        //     .attr("class", "y axis")
-        //     .attr("transform", "translate(" + margin.l + "," + margin.t + ")")
-        //     .call(yAxis);
+            // fade out guide lines, then remove them
+            d3.selectAll(".guide").transition().duration(100)
+                .styleTween("opacity", function() { return d3.interpolate(.5, 0); })
+                .remove()
+        };
 
-        // svg.append("text")
-        //     .attr("class", "x label")
-        //     .attr("text-anchor", "end")
-        //     .attr("x", w + 50)
-        //     .attr("y", h - margin.t - 5)
-        //     .text("others in society seen as trustworthy*");
+        // run the mouseon/out functions
+        circles.on("mouseover", mouseOn);
+        circles.on("mouseout", mouseOff);
 
-        // svg.append("text")
-        //     .attr("class", "y label")
-        //     .attr("text-anchor", "end")
-        //     .attr("x", -20)
-        //     .attr("y", 45)
-        //     .attr("dy", ".75em")
-        //     .attr("transform", "rotate(-90)")
-        //     .text("ease of doing business (rank)");
+        // tooltips (using jQuery plugin tipsy)
+        circles.append("title").text(function(d) { return d.Name; })
+
+        $(".circles").tipsy({ gravity: 's', });
+        colorSet = []
+        var colorArray = [];
+        $.each(players, function (key, value) {
+            if(jQuery.inArray(value[options.optionC],colorSet) == -1){
+                colorSet.push(value[options.optionC]);
+                colorArray.push({tempColor: value[options.optionC]});
+            }
+        });
+        colorArray.sort(function(a, b) { return d3.ascending(a.tempColor, b.tempColor); })
+
+        // the legend color guide
+        var legend = svg.selectAll("rect")
+            .data(colorArray)
+            .enter().append("rect")
+            .attr({
+                x: function(d, i) { return (160 + i*30); },
+                y: h,
+                width: 25,
+                height: 12
+            })
+            .style("fill", function(d) { return color(d.tempColor); });
+
+
+        colorSet = []
+        colorArray = [];
+        $.each(players, function (key, value) {
+            if(jQuery.inArray(value[options.optionC],colorSet) == -1){
+                colorSet.push(value[options.optionC]);
+                colorArray.push({tempColor: value[options.optionC]});
+            }
+        });
+        colorArray.sort(function(a, b) { return d3.ascending(a.tempColor, b.tempColor); })
+
+        // legend labels    
+        svg.selectAll("text")
+            .data(colorArray)
+            .enter().append("text")
+            .attr({
+                x: function(d, i) { return (160 + i*30); },
+                y: h + 24,
+            })
+            .text(function(d) { return d.tempColor; });
+
+        svg.append("text")
+            .attr("class", "color label")
+            .attr("text-anchor", "end")
+            .attr("x", w/4)
+            .attr("y", h+10)
+            .text("Color: "+options.optionC);
+
+        // draw axes and axis labels
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(" + margin.l + "," + (h - 60 + margin.t) + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + margin.l + "," + margin.t + ")")
+            .call(yAxis);
+
+        svg.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "end")
+            .attr("x", w + 50)
+            .attr("y", h - margin.t - 5)
+            .text(options.optionX);
+
+        svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "end")
+            .attr("x", -20)
+            .attr("y", 45)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text(options.optionY);
 
     }
 
     $("#apply").click(function(){
+        d3.select("svg").remove();
         getGraph();
     })
 
-    getGraph();
+    $( document ).ready(function() {
+        getGraph();
+    });
 
 </script>
 
