@@ -4,28 +4,15 @@ body{
     overflow: hidden;
 }
 
-a{
+h1{
     text-decoration: none;
-    color: #000;
-}
-
-
-
-nav{
-    text-align: center;
-    width: 100%;
-    background:#fff;
-    color: #000;
-}
-
-nav div {
-    display: inline-block;
-    border: 1px dotted #8A2BE2;
+    color: #555;
+    font-weight: bold;
 }
 
 svg {
     border: 1px solid black;
-    
+
 }
 
 #viz, img{
@@ -66,11 +53,16 @@ form{
     position: absolute;
 }
 
+#home{
+    position: absolute;
+    margin: 6% 15%;
+}
+
 #centered{
     width: 75%;
     height: 75%;
     margin:5% auto;
-    border: 1px dotted #ddd;
+    border: 10px solid #ddd;
     text-align: center;
     text-transform: uppercase;
     color: #fff;

@@ -2,11 +2,43 @@ body{
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background-color: #fff;
 }
 
 a{
     text-decoration: none;
-    color: #fff;
+    color: #555;
+}
+
+h1{
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+}
+
+.container{
+    width: 99%;
+    height: 99%;
+    background-color: #f0f0f0;
+}
+
+.banner{
+    border-bottom: 1px solid black;
+    text-align: center;
+    background-color: #ddd;
+}
+
+.col-sm-1{
+    background-color: #ddd;
+    width: 5%;
+}
+
+.row {
+    height: 25%;
+}
+
+.row div{
+    height: 100%;
 }
 
 .wrapper{
@@ -14,29 +46,19 @@ a{
     width: 75%;
     height: 75%;
     margin:5% 12.5%;
-    background-color: #eee;
-    border: 1px dotted #ccc;
-}
-
-.div-rec{
-    width: 20%;
     background-color: #ddd;
-    margin: 5% 5%;
+    border: 1px dotted #ccc;
 }
 
 #optical-illusion{
     height: 30%;
     text-transform: uppercase;
-    color: #fff;
+    color: #000;
     background: #9370DB;
     margin-left: 20%;
 }
 
-#name{
-    height: 25%;
-    text-transform: uppercase;
-    color: #555;
-    text-align: right;
-    padding: 45% 5% 0 0;
+a:hover{
+    color: #000;
 }
 

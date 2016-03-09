@@ -4,17 +4,22 @@ body{
     overflow: hidden;
 }
 
-a{
+input, a{
     text-decoration: none;
-    color: #fff;
+    color: #000;
 }
 
-
+h1{
+    text-decoration: none;
+    font-family: sans-serif;
+    color: #555;
+    font-weight: bold;
+}
 
 nav{
     text-align: center;
     width: 100%;
-    background:#fff;
+    background: Aquamarine;
     color: #000;
 }
 
@@ -67,7 +72,7 @@ form{
 
 #home{
     position: absolute;
-    margin: 7% 15%;
+    margin: 6% 15%;
 }
 
 #centered{
@@ -77,8 +82,7 @@ form{
     border: 1px dotted purple;
     text-align: center;
     text-transform: uppercase;
-    color: #fff;
-    background: #9370DB;
+    background: Aquamarine;
 }
 
 #content{
