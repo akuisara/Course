@@ -1,0 +1,129 @@
+<sports>
+	<baseball>
+		<team>
+			<name>Red Sox</name>
+			<player>
+				<name>David Ortiz</name>
+				<height>75</height>
+				<weight>230</weight>
+				<average>.284</average>
+				<OBP>.378</OBP>
+				<home_runs>503</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Red Sox</name>
+			<player>
+				<name>Zander Bogaerts</name>
+				<height>73</height>
+				<weight>210</weight>
+				<average>.281</average>
+				<OBP>.327</OBP>
+				<home_runs>20</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Tigers</name>
+			<player>
+				<name>Miguel Cabrera</name>
+				<height>76</height>
+				<weight>240</weight>
+				<average>.321</average>
+				<OBP>.399</OBP>
+				<home_runs>408</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Astros</name>
+			<player>
+				<name>Jose Altuve</name>
+				<height>66</height>
+				<weight>165</weight>
+				<average>.305</average>
+				<OBP>.343</OBP>
+				<home_runs>36</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Angels</name>
+			<player>
+				<name>Mike Trout</name>
+				<height>74</height>
+				<weight>235</weight>
+				<average>.304</average>
+				<OBP>.397</OBP>
+				<home_runs>139</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Angels</name>
+			<player>
+				<name>Albert Pujols</name>
+				<height>75</height>
+				<weight>230</weight>
+				<average>.312</average>
+				<OBP>.397</OBP>
+				<home_runs>560</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Orioles</name>
+			<player>
+				<name>Chris Davis</name>
+				<height>75</height>
+				<weight>232</weight>
+				<average>.255</average>
+				<OBP>.330</OBP>
+				<home_runs>203</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Mariners</name>
+			<player>
+				<name>Nelson Cruz</name>
+				<height>74</height>
+				<weight>230</weight>
+				<average>.273</average>
+				<OBP>.334</OBP>
+				<home_runs>241</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Blue Jays</name>
+			<player>
+				<name>Jose Bautista</name>
+				<height>72</height>
+				<weight>205</weight>
+				<average>.257</average>
+				<OBP>.368</OBP>
+				<home_runs>286</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Blue Jays</name>
+			<player>
+				<name>Josh Donaldson</name>
+				<height>73</height>
+				<weight>210</weight>
+				<average>.276</average>
+				<OBP>.354</OBP>
+				<home_runs>104</home_runs>
+			</player>
+		</team>
+		<team>
+			<name>Red Sox</name>
+			<player>
+				<name>Mookie Betts</name>
+				<height>69</height>
+				<weight>180</weight>
+				<average>.291</average>
+				<OBP>.348</OBP>
+				<home_runs>23</home_runs>
+			</player>
+		</team>
+	</baseball>
+	<football>
+	</football>
+	<basketball>
+	</basketball>
+</sports>
