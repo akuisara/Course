@@ -1,7 +1,53 @@
 body{
     width: 100%;
     height: 100%;
-    overflow: hidden;
+}
+
+h1{
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    font-size: 3em;
+    text-transform: uppercase;
+}
+
+.wrapper{
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    margin:5% 12.5%;
+    background-color: #ddd;
+    border: 1px dotted #ccc;
+}
+
+.container{
+    width: 99%;
+    height: 99%;
+    background-color: #f0f0f0;
+}
+
+.row {
+    height: 25%;
+}
+
+.row div{
+    height: 101%;
+}
+
+.banner{
+    text-align: center;
+    background-color: Aquamarine;
+}
+
+.content{
+    height: 75%;
+}
+
+#home{
+    position: absolute;
+    left: 5%;
+    top: 45%;
+    border-radius: 95%
 }
 
 input, a{
@@ -40,55 +86,31 @@ img{
 }
 
 form{
-    margin: 5% auto;
+    margin: -5% auto;
 }
 
 .content-wrapper{
-    position: absolute;
-    width: 40%;
-    height: 40%;
-    margin: 1% 18%;
-}
-
-.wrapper{
-    width: 100%;
-    height: 100%;
-    position: absolute;
+    padding: 0 10%;
 }
 
 .explanation{
     position: absolute;
-    width: 100%;
-    height: 30%;
+    width: 80%;
+    max-height: 100px;
     text-transform: none;
     text-align: justify;
-    margin: -5% auto;
     overflow-y: auto;
+    top: 70%;
 }
 
 .source{
     text-decoration: underline;
 }
 
-#home{
-    position: absolute;
-    margin: 6% 15%;
-}
-
-#centered{
-    width: 75%;
-    height: 75%;
-    margin:5% auto;
-    border: 1px dotted purple;
-    text-align: center;
-    text-transform: uppercase;
-    background: Aquamarine;
-}
-
-#content{
-    background-color: #f0f0f0;
+.viz{
     width: 100%;
-    height: 60%;
+    height: 50%;
+    padding: 0 5% 20% 5%;
 }
 
 #content-leaning-tower{
