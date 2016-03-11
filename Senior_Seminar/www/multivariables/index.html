@@ -8,7 +8,7 @@
         <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
         <script src="js/jquery.tipsy.js" type="text/javascript" charset="utf-8"></script>
         <link rel="stylesheet" href="http://onehackoranother.com/projects/jquery/tipsy/stylesheets/tipsy.css" type="text/css" title="no title" charset="utf-8"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
         <style>
@@ -37,17 +37,12 @@
     </head>
     <body>
         <div class="wrapper">
-            <!-- <a id="home" href="../"><button type="button" class="btn btn-primary">Home</button></a> -->
             <div class="container">
                 <div class="row banner">
-<!--                     <div class="col-lg-2 col-md-2 col-sm-12 col-sm-2">
-                    </div> -->
                     <div class="col-lg-12 col-md-12 col-sm-12 col-sm-12">
                         <a id="home" href="../"><button type="button" class="btn btn-primary-outline">Home</button></a>
                         <h1>Sports Data</h1>
                     </div>
-<!--                     <div class="col-sm-2 col-md-2 col-sm-0 col-sm-0">
-                    </div> -->
                 </div>
 
                 <div class="row content">
@@ -98,58 +93,44 @@
                 </div>
             </div>
 
-        
-            <!-- <div id="centered">
-                <h1>Sports Data</h1>
-                
-                <div id="content">
-                    <div class="section-left">
-                        <br>X-axis:
-                        <select class="options" id="x">
-                            <option value="Height" selected>Height</option>
-                            <option value="Weight">Weight</option>
-                            <option value="Average">Average</option>
-                            <option value="OBP">OBP</option>
-                            <option value="Homeruns">Home runs</option>
-                        </select>
-                        <br>Y-axis:
-                        <select class="options" id="y">
-                            <option value="Height">Height</option>
-                            <option value="Weight" selected>Weight</option>
-                            <option value="Average">Average</option>
-                            <option value="OBP">OBP</option>
-                            <option value="Homeruns">Home runs</option>
-                        </select>
-                        <br>Circle size:
-                        <select class="options" id="circleRadius">
-                            <option value="Height">Height</option>
-                            <option value="Weight">Weight</option>
-                            <option value="Average" selected>Average</option>
-                            <option value="OBP">OBP</option>
-                            <option value="Homeruns">Home runs</option>
-                        </select>
-                        <br>Circle color:
-                        <select class="options" id="circleColor">
-                            <option value="Height">Height</option>
-                            <option value="Weight">Weight</option>
-                            <option value="Average">Average</option>
-                            <option value="OBP" selected>OBP</option>
-                            <option value="Homeruns">Home runs</option>
-                        </select>
-                        
-                        <hr>
-                        <button id="apply">Apply Changes</button>
-                    </div>
-
-                    <div class="content-wrapper" id="content-multivariable">
-                        <div id="viz"></div>
-                    </div>
-                </div>
-            </div>  -->
             <p id="update">Last updated: </p>
         </div>
 
         <script type="text/javascript">
+            // set the stage
+            var margin = {t:30, r:20, b:20, l:40 },
+                w = 600 - margin.l - margin.r,
+                h = 450 - margin.t - margin.b,
+                x = d3.scale.linear().range([0, w]),
+                y = d3.scale.linear().range([h - 60, 0]),
+                //colors that will reflect geographical regions
+                color = d3.scale.category10();
+
+            var svg = d3.select("#viz").append("svg")
+                .attr("width", w + margin.l + margin.r)
+                .attr("height", h + margin.t + margin.b)
+                .classed("svg-content-responsive", true);
+
+            // set axes, as well as details on their ticks
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .ticks(20)
+                .tickSubdivide(true)
+                .tickSize(6, 3, 0)
+                .orient("bottom");
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .ticks(20)
+                .tickSubdivide(true)
+                .tickSize(6, 3, 0)
+                .orient("left");
+
+            // group that will contain all of the plots
+            var groups = svg.append("g").attr("transform", "translate(" + margin.l + "," + margin.t + ")");
+            var players = [];
+
+
             // get input options
             function getOptions() {
                 var optionX = $("#x").val();
@@ -160,66 +141,10 @@
                 return {"optionX": optionX, "optionY": optionY, "optionR":optionR, "optionC": optionC};
             }
 
-            var players = [];
-
-            // bring in the data, and do everything that is data-driven
-            d3.xml("data/sportsData.xml", function(data) {
-                // array of the players, used for the legend
-                var xml = $('baseball', data);
-
-                xml.find("player").each(function() {
-                    temp = {};
-                    temp["Name"] = $(this).find("name").text();
-                    temp["Height"] = $(this).find("height").text();
-                    temp["Weight"] = $(this).find("weight").text();
-                    temp["Average"] = $(this).find("average").text();
-                    temp["OBP"] = $(this).find("OBP").text();
-                    temp["Homeruns"] = $(this).find("home_runs").text();
-                    temp["Team"] = $(this).prev().text();
-                    players.push(temp);
-                });
-            });
-
             function getGraph(){
+                // alert(3);
+                console.log("Get Graph");
 
-                    // set the stage
-                var margin = {t:30, r:20, b:20, l:40 },
-                    w = 600 - margin.l - margin.r,
-                    h = 450 - margin.t - margin.b,
-                    x = d3.scale.linear().range([0, w]),
-                    y = d3.scale.linear().range([h - 60, 0]),
-                    //colors that will reflect geographical regions
-                    color = d3.scale.category10();
-
-                var svg = d3.select("#viz").append("svg")
-                    .attr("width", w + margin.l + margin.r)
-                    .attr("height", h + margin.t + margin.b)
-                    // .attr("width", "100%")
-                    // .attr("height", "auto")
-                    //responsive SVG needs these 2 attributes and no width and height attr
-                   // .attr("preserveAspectRatio", "xMinYMin meet")
-                   // .attr("viewBox", "0 0 600 400")
-                   //class to make it responsive
-                    .classed("svg-content-responsive", true);
-
-                // set axes, as well as details on their ticks
-                var xAxis = d3.svg.axis()
-                    .scale(x)
-                    .ticks(20)
-                    .tickSubdivide(true)
-                    .tickSize(6, 3, 0)
-                    .orient("bottom");
-
-                var yAxis = d3.svg.axis()
-                    .scale(y)
-                    .ticks(20)
-                    .tickSubdivide(true)
-                    .tickSize(6, 3, 0)
-                    .orient("left");
-
-                // group that will contain all of the plots
-                var groups = svg.append("g").attr("transform", "translate(" + margin.l + "," + margin.t + ")");
-            
                 var options = getOptions();
 
                 var xDomain = d3.extent(players, function(d) { 
@@ -249,14 +174,13 @@
                     .enter().append("circle")
                     .attr("class", "circles")
                     .attr({
-                        cx: function(d) { 
-                            return x(+d[options.optionX]); 
-                        },
+                        cx: function(d) { return x(+d[options.optionX]); },
                         cy: function(d) { return y(+d[options.optionY]); },
                         r: function(d) { return r(+d[options.optionR]); },
                         id: function(d) { return d.Name; }
                     })
                     .style("fill", function(d) { return color(d[options.optionC]); });
+
 
                 // what to do when we mouse over a bubble
                 var mouseOn = function() { 
@@ -353,17 +277,6 @@
                     })
                     .style("fill", function(d) { return color(d.tempColor); });
 
-
-                colorSet = []
-                colorArray = [];
-                $.each(players, function (key, value) {
-                    if(jQuery.inArray(value[options.optionC],colorSet) == -1){
-                        colorSet.push(value[options.optionC]);
-                        colorArray.push({tempColor: value[options.optionC]});
-                    }
-                });
-                colorArray.sort(function(a, b) { return d3.ascending(a.tempColor, b.tempColor); })
-
                 // legend labels    
                 svg.selectAll("text")
                     .data(colorArray)
@@ -410,20 +323,45 @@
 
             }
 
+            var getData = function () {
+                // create a deferred object
+                var r = $.Deferred();
+                d3.xml("data/sportsData.xml", function(data) {
+                    // array of the players, used for the legend
+                    var xml = $('baseball', data);
+
+                    xml.find("player").each(function() {
+                        temp = {};
+                        temp["Name"] = $(this).find("name").text();
+                        temp["Height"] = $(this).find("height").text();
+                        temp["Weight"] = $(this).find("weight").text();
+                        temp["Average"] = $(this).find("average").text();
+                        temp["OBP"] = $(this).find("OBP").text();
+                        temp["Homeruns"] = $(this).find("home_runs").text();
+                        temp["Team"] = $(this).prev().text();
+                        players.push(temp);
+                    });
+                });
+
+                setTimeout(function () {
+                    // and call `resolve` on the deferred object, once you're done
+                    r.resolve();
+                }, 5);
+
+                // return the deferred object
+                return r;
+            };
+
             $("#apply").click(function(){
                 d3.select("svg").remove();
                 getGraph();
             })
 
             $( document ).ready(function() {
-                getGraph();
+                getData().done(getGraph);
             });
 
             $("#update").append(document.lastModified);
-</script>
-
-        
-
-
+        </script>
     </body>
 </html>
