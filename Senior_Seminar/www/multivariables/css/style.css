@@ -1,7 +1,7 @@
 body{
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 h1{
@@ -10,14 +10,82 @@ h1{
     font-weight: bold;
 }
 
-svg {
-    border: 1px solid black;
+.wrapper{
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    margin:5% 12.5%;
+    background-color: #ddd;
+    border: 1px dotted #ccc;
+}
+
+.container{
+    width: 99%;
+    height: 99%;
+    background-color: #f0f0f0;
+}
+
+.row {
+    height: 25%;
+}
+
+.row div{
+    height: 101%;
+}
+
+.banner{
+    text-align: center;
+    background-color: Aquamarine;
+}
+
+.content{
+    height: 75%;
+}
+
+.section-left{
+    color: #000;
+    font-size: 13px;
+    font-family: serif;
+    text-transform: capitalize;
+    text-align: right;
+}
+
+.content-wrapper{
+    /*border: 1px solid red;*/
+    padding: 0 10%;
 
 }
 
-#viz, img{
-    min-width: 100%;
-    min-height: 100%;
+#viz{
+    width: 100%;
+    height: auto;
+    padding: 3% 3%;
+    /*display: inline-block;*/
+    /*position: relative;*/
+    padding-bottom: 60%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+    /*border: 1px solid blue;*/
+
+}
+
+/*.content-wrapper{
+    position: absolute;
+    width: 40%;
+    height: 55%;
+    margin: 1% 18%;
+}*/
+
+
+svg {
+    border: 1px dotted black;
+}
+
+
+
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
 }
 
 img{
@@ -28,30 +96,15 @@ form{
     margin: 5% auto;
 }
 
-.section-left{
-    color: #000;
-    font-size: 14px;
-    font-family: serif;
-    text-transform: capitalize;
-    text-align: right;
-    position: absolute;
-    width: 12%;
-    height: 40%;
-    margin: 1% 3%;
-}
 
-.content-wrapper{
-    position: absolute;
-    width: 40%;
-    height: 55%;
-    margin: 1% 18%;
-}
 
-.wrapper{
+
+
+/*.wrapper{
     width: 100%;
     height: 100%;
-    position: absolute;
-}
+    position: relative;
+}*/
 
 #home{
     position: absolute;
@@ -60,7 +113,7 @@ form{
 
 #centered{
     width: 75%;
-    height: 75%;
+    height: 80%;
     margin:5% auto;
     border: 10px solid #ddd;
     text-align: center;
@@ -74,18 +127,6 @@ form{
     width: 100%;
     height: 80%;
 }
-
-#content-leaning-tower{
-    z-index: 0;
-    display: block;
-}
-
-#content-sine-illusion{
-    z-index: 1;
-    display: none;
-}
-
-
 
 .axis path,
 .axis line {

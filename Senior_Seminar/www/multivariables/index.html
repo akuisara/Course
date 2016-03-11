@@ -37,16 +37,71 @@
     </head>
     <body>
         <div class="wrapper">
-            <a id="home" href="../"><button type="button" class="btn btn-primary">Home</button></a>
+            <!-- <a id="home" href="../"><button type="button" class="btn btn-primary">Home</button></a> -->
+            <div class="container">
+                <div class="row banner">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <h1>Sports Data</h1>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+
+                <div class="row content">
+                    <div class="col-sm-2 section-left">
+                        <br>X-axis:
+                        <select class="options" id="x">
+                            <option value="Height" selected>Height</option>
+                            <option value="Weight">Weight</option>
+                            <option value="Average">Average</option>
+                            <option value="OBP">OBP</option>
+                            <option value="Homeruns">Home runs</option>
+                        </select>
+                        <br>Y-axis:
+                        <select class="options" id="y">
+                            <option value="Height">Height</option>
+                            <option value="Weight" selected>Weight</option>
+                            <option value="Average">Average</option>
+                            <option value="OBP">OBP</option>
+                            <option value="Homeruns">Home runs</option>
+                        </select>
+                        <br>Circle size:
+                        <select class="options" id="circleRadius">
+                            <option value="Height">Height</option>
+                            <option value="Weight">Weight</option>
+                            <option value="Average" selected>Average</option>
+                            <option value="OBP">OBP</option>
+                            <option value="Homeruns">Home runs</option>
+                        </select>
+                        <br>Circle color:
+                        <select class="options" id="circleColor">
+                            <option value="Height">Height</option>
+                            <option value="Weight">Weight</option>
+                            <option value="Average">Average</option>
+                            <option value="OBP" selected>OBP</option>
+                            <option value="Homeruns">Home runs</option>
+                        </select>
+                        
+                        <hr>
+                        <button id="apply">Apply Changes</button>
+                    </div>
+
+                    <div class="col-sm-8 content-wrapper">
+                        <div id="viz"></div>
+                    </div>
+
+                    <div class="col-sm-2">
+                    </div>
+                </div>
+            </div>
+
         
-            <div id="centered">
+            <!-- <div id="centered">
                 <h1>Sports Data</h1>
                 
                 <div id="content">
-                    <div class="content-wrapper" id="content-multivariable">
-                        <div id="viz" width = "600" height="600"></div>
-                    </div>
-
                     <div class="section-left">
                         <br>X-axis:
                         <select class="options" id="x">
@@ -84,17 +139,19 @@
                         <hr>
                         <button id="apply">Apply Changes</button>
                     </div>
+
+                    <div class="content-wrapper" id="content-multivariable">
+                        <div id="viz"></div>
+                    </div>
                 </div>
-                <!-- set up a button -->
-                
-            </div>
+            </div>  -->
         </div>
 
         <script type="text/javascript">
     // set the stage
     var margin = {t:30, r:20, b:20, l:40 },
         w = 600 - margin.l - margin.r,
-        h = 500 - margin.t - margin.b,
+        h = 450 - margin.t - margin.b,
         x = d3.scale.linear().range([0, w]),
         y = d3.scale.linear().range([h - 60, 0]),
         //colors that will reflect geographical regions
@@ -102,7 +159,14 @@
 
     var svg = d3.select("#viz").append("svg")
         .attr("width", w + margin.l + margin.r)
-        .attr("height", h + margin.t + margin.b);
+        .attr("height", h + margin.t + margin.b)
+        // .attr("width", "100%")
+        // .attr("height", "auto")
+        //responsive SVG needs these 2 attributes and no width and height attr
+       // .attr("preserveAspectRatio", "xMinYMin meet")
+       // .attr("viewBox", "0 0 600 400")
+       //class to make it responsive
+        .classed("svg-content-responsive", true);
 
     // set axes, as well as details on their ticks
     var xAxis = d3.svg.axis()

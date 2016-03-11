@@ -34,11 +34,12 @@ h1{
 }
 
 .row {
-    height: 25%;
+    width: 100%;
 }
 
 .row div{
     height: 100%;
+    border: 1px solid purple;
 }
 
 .wrapper{
