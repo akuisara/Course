@@ -87,6 +87,7 @@ img{
 
 form{
     margin: -5% auto;
+    z-index: 100;
 }
 
 .content-wrapper{
@@ -121,4 +122,15 @@ form{
 #content-sine-illusion{
     z-index: 1;
     display: none;
+}
+
+/*#update{
+    bottom: 0;
+    position: fixed;
+    background-color: Aquamarine;
+    color: #000;
+}*/
+
+.note{
+    width: 50%;
 }

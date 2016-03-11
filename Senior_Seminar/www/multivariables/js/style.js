@@ -159,7 +159,7 @@ $( document ).ready(function() {
             d3.selectAll(".guide").transition().duration(100)
                 .styleTween("opacity", function() { return d3.interpolate(.5, 0); })
                 .remove()
-            $("#info").html();
+            // $("#info").html("");
         };
 
         // run the mouseon/out functions

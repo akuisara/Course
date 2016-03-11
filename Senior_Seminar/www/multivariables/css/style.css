@@ -62,6 +62,7 @@ h1{
 #info{
     font-size: 15px;
     font-family: serif;
+    color: #000;
 }
 
 #home{
@@ -83,7 +84,7 @@ h1{
 }
 
 svg {
-    border: 1px dotted black;
+    border: 1px dotted #555;
 }
 
 .svg-content-responsive {
@@ -111,4 +112,15 @@ body { font: 12px sans-serif; }
     stroke: #000;
     shape-rendering: crispEdges;
     opacity: 0;
+}
+
+/*#update{
+    bottom: 0;
+    position: fixed;
+    background-color: Aquamarine;
+    color: #000;
+}
+*/
+.note{
+    width: 50%;
 }

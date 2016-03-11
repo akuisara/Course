@@ -2,6 +2,7 @@ body{
     width: 100%;
     height: 100%;
     background-color: #fff;
+    /*overflow: hidden;*/
 }
 
 a{
@@ -25,10 +26,19 @@ h3{
     font-size: 2em;
 }
 
+.odd{
+    border-bottom: 1px solid #ddd;
+}
+
 .container{
     width: 99%;
     height: 99%;
     background-color: #f0f0f0;
+}
+
+.row {
+    height: 25%;
+    min-height: 150px;
 }
 
 .banner{
@@ -36,10 +46,6 @@ h3{
     text-align: center;
     background-color: #ddd;
     min-height: 160px;
-}
-
-.row {
-    height: 25%;
 }
 
 .row div{
@@ -53,11 +59,19 @@ h3{
     margin:5% 12.5%;
     background-color: #ddd;
     border: 1px dotted #ccc;
-    min-height: 700px;
-
 }
 
 a:hover{
     color: #000;
 }
 
+/*#update{
+    bottom: 0;
+    position: fixed;
+    background-color: Aquamarine;
+    color: #000;
+}*/
+
+.note{
+    width: 50%;
+}
