@@ -51,9 +51,17 @@ h1{
     text-align: right;
 }
 
+.section-right{
+    top: 5%;
+}
+
 .content-wrapper{
     padding: 0 10%;
+}
 
+#info{
+    font-size: 15px;
+    font-family: serif;
 }
 
 #home{
@@ -72,7 +80,6 @@ h1{
     padding-bottom: 60%; /* aspect ratio */
     vertical-align: top;
     overflow: hidden;
-
 }
 
 svg {
